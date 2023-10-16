@@ -919,6 +919,12 @@ dataclasses interface. For example, this is using the pydantic <code class="docu
 <p>Validators are not currently supported - neither the built in validators that come
 with <cite>attrs</cite> nor custom validators.</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Declaring an argument on the factory that doesn’t exist on the model will trigger an exception.</p>
+<p>This is only true when fields are declared with <code class="docutils literal notranslate"><span class="pre">Use</span></code>, <code class="docutils literal notranslate"><span class="pre">PostGenerated</span></code>, <code class="docutils literal notranslate"><span class="pre">Ignore</span></code> and <code class="docutils literal notranslate"><span class="pre">Require</span></code>,
+any other field definition will not be checked.</p>
+</div>
 <section id="imperative-factory-creation">
 <h2>Imperative Factory Creation<a class="headerlink" href="#imperative-factory-creation" title="Permalink to this heading">#</a></h2>
 <p>Although the definition of factories is primarily meant to be done imperatively, factories expose the
