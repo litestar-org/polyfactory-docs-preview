@@ -1166,15 +1166,16 @@ Any other field definition will not be checked.</p>
     <span class="nb">id</span><span class="p">:</span> <span class="n">UUID</span>
 
 
-<span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span>
-    <span class="n">ConfigurationException</span><span class="p">,</span>
-    <span class="n">match</span><span class="o">=</span><span class="s2">&quot;unknown_field is declared on the factory PersonFactory but it is not part of the model Person&quot;</span><span class="p">,</span>
-<span class="p">):</span>
+<span class="k">def</span> <span class="nf">test_check_factory_fields</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span>
+        <span class="n">ConfigurationException</span><span class="p">,</span>
+        <span class="n">match</span><span class="o">=</span><span class="s2">&quot;unknown_field is declared on the factory PersonFactory but it is not part of the model Person&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
 
-    <span class="k">class</span> <span class="nc">PersonFactory</span><span class="p">(</span><span class="n">DataclassFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span>
-        <span class="n">__model__</span> <span class="o">=</span> <span class="n">Person</span>
-        <span class="n">__check_model__</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="n">unknown_field</span> <span class="o">=</span> <span class="n">PostGenerated</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">)</span>
+        <span class="k">class</span> <span class="nc">PersonFactory</span><span class="p">(</span><span class="n">DataclassFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span>
+            <span class="n">__model__</span> <span class="o">=</span> <span class="n">Person</span>
+            <span class="n">__check_model__</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">unknown_field</span> <span class="o">=</span> <span class="n">PostGenerated</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
