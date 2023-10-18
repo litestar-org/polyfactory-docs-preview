@@ -1147,7 +1147,7 @@ Once a factory is generated, it is then cached and reused - when the same type i
 </section>
 <section id="check-factory-fields">
 <h2>Check Factory Fields<a class="headerlink" href="#check-factory-fields" title="Permalink to this heading">#</a></h2>
-<p>When <cite>__check_model__</cite> is set to <cite>True</cite>, declaring an argument on the factory that doesn’t exist on the model will trigger an exception.</p>
+<p>When <cite>__check_model__</cite> is set to <cite>True</cite>, declaring fields on the factory that don’t exist on the model will trigger an exception.</p>
 <p>This is only true when fields are declared with <code class="docutils literal notranslate"><span class="pre">Use</span></code>, <code class="docutils literal notranslate"><span class="pre">PostGenerated</span></code>, <code class="docutils literal notranslate"><span class="pre">Ignore</span></code> and <code class="docutils literal notranslate"><span class="pre">Require</span></code>.
 Any other field definition will not be checked.</p>
 <div class="literal-block-wrapper docutils container" id="id9">
