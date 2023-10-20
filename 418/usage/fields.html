@@ -1118,6 +1118,63 @@ name in the values dictionary.</p>
 <section id="factories-as-fields">
 <h2>Factories as Fields<a class="headerlink" href="#factories-as-fields" title="Permalink to this heading">#</a></h2>
 <p>Factories themselves can be used as fields. In this usage, build parameters will be passed to the declared factory.</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Using a factory as a field</span><a class="headerlink" href="#id8" title="Permalink to this code">#</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">UUID</span>
+
+<span class="kn">from</span> <span class="nn">polyfactory.factories</span> <span class="kn">import</span> <span class="n">DataclassFactory</span>
+
+
+<span class="k">class</span> <span class="nc">Species</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="n">CAT</span> <span class="o">=</span> <span class="s2">&quot;Cat&quot;</span>
+    <span class="n">DOG</span> <span class="o">=</span> <span class="s2">&quot;Dog&quot;</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Pet</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">species</span><span class="p">:</span> <span class="n">Species</span>
+    <span class="n">sound</span><span class="p">:</span> <span class="nb">str</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="n">UUID</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">hobbies</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">age</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+    <span class="n">birthday</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">datetime</span><span class="p">,</span> <span class="n">date</span><span class="p">]</span>
+    <span class="n">pet</span><span class="p">:</span> <span class="n">Pet</span>
+    <span class="n">assets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]]</span>
+
+
+<span class="k">class</span> <span class="nc">PetFactory</span><span class="p">(</span><span class="n">DataclassFactory</span><span class="p">[</span><span class="n">Pet</span><span class="p">]):</span>
+    <span class="n">__model__</span> <span class="o">=</span> <span class="n">Pet</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">DataclassFactory</span><span class="o">.</span><span class="n">__random__</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Ralph&quot;</span><span class="p">,</span> <span class="s2">&quot;Roxy&quot;</span><span class="p">])</span>
+
+
+<span class="k">class</span> <span class="nc">PersonFactory</span><span class="p">(</span><span class="n">DataclassFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span>
+    <span class="n">__model__</span> <span class="o">=</span> <span class="n">Person</span>
+
+    <span class="n">pet</span> <span class="o">=</span> <span class="n">PetFactory</span>
+
+
+<span class="k">def</span> <span class="nf">test_subfactory</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">person_instance</span> <span class="o">=</span> <span class="n">PersonFactory</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">person_instance</span><span class="o">.</span><span class="n">pet</span><span class="p">,</span> <span class="n">Pet</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">person_instance</span><span class="o">.</span><span class="n">pet</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;Ralph&quot;</span><span class="p">,</span> <span class="s2">&quot;Roxy&quot;</span><span class="p">]</span>
+
+    <span class="n">person_instance_with_pet_name</span> <span class="o">=</span> <span class="n">PersonFactory</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">pet</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Winston&quot;</span><span class="p">})</span>
+    <span class="k">assert</span> <span class="n">person_instance_with_pet_name</span><span class="o">.</span><span class="n">pet</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;Winston&quot;</span>
+</pre></div>
+</div>
+</div>
 </section>
 </section>
 
