@@ -789,30 +789,19 @@ document.write(`
     <span class="n">__model__</span> <span class="o">=</span> <span class="n">Profile</span>
 
 
-<span class="n">profiles</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ProfileFactory</span><span class="o">.</span><span class="n">coverage</span><span class="p">())</span>
+<span class="k">def</span> <span class="nf">test_profile_coverage</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">profiles</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ProfileFactory</span><span class="o">.</span><span class="n">coverage</span><span class="p">())</span>
 
-<span class="c1"># &gt;&gt;&gt; print(profiles)</span>
-<span class="p">[</span>
-    <span class="n">Profile</span><span class="p">(</span>
-        <span class="n">age</span><span class="o">=</span><span class="mi">9325</span><span class="p">,</span>
-        <span class="n">favourite_color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
-        <span class="n">vehicle</span><span class="o">=</span><span class="n">Car</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;hrxarraoDbdkBnpxMEiG&quot;</span><span class="p">),</span>
-    <span class="p">),</span>
-    <span class="n">Profile</span><span class="p">(</span>
-        <span class="n">age</span><span class="o">=</span><span class="mi">6840</span><span class="p">,</span>
-        <span class="n">favourite_color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span>
-        <span class="n">vehicle</span><span class="o">=</span><span class="n">Boat</span><span class="p">(</span><span class="n">can_float</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-    <span class="p">),</span>
-    <span class="n">Profile</span><span class="p">(</span>
-        <span class="n">age</span><span class="o">=</span><span class="mi">4769</span><span class="p">,</span>
-        <span class="n">favourite_color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span>
-        <span class="n">vehicle</span><span class="o">=</span><span class="n">Car</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;hrxarraoDbdkBnpxMEiG&quot;</span><span class="p">),</span>
-    <span class="p">),</span>
-<span class="p">]</span>
+    <span class="k">assert</span> <span class="n">profiles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">favourite_color</span> <span class="o">==</span> <span class="s2">&quot;red&quot;</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">profiles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">Car</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">profiles</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">favourite_color</span> <span class="o">==</span> <span class="s2">&quot;green&quot;</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">profiles</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">Boat</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">profiles</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">favourite_color</span> <span class="o">==</span> <span class="s2">&quot;blue&quot;</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">profiles</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">Car</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<p>As you can see in the above example, the <code class="docutils literal notranslate"><span class="pre">``Profile``</span></code> model has 3 options for <code class="docutils literal notranslate"><span class="pre">favourite_color</span></code>, and 2 options for <code class="docutils literal notranslate"><span class="pre">vehicle</span></code>. In the output you can expect to see instances of <code class="docutils literal notranslate"><span class="pre">Profile</span></code> that have each of these options. The largest variance dictates the length of the output, in this case <code class="docutils literal notranslate"><span class="pre">favourite_color</span></code> has the most, at 3 options, so expect to see 3 <code class="docutils literal notranslate"><span class="pre">Profile</span></code> instances.</p>
+<p>As you can see in the above example, the <code class="docutils literal notranslate"><span class="pre">Profile</span></code> model has 3 options for <code class="docutils literal notranslate"><span class="pre">favourite_color</span></code>, and 2 options for <code class="docutils literal notranslate"><span class="pre">vehicle</span></code>. In the output you can expect to see instances of <code class="docutils literal notranslate"><span class="pre">Profile</span></code> that have each of these options. The largest variance dictates the length of the output, in this case <code class="docutils literal notranslate"><span class="pre">favourite_color</span></code> has the most, at 3 options, so expect to see 3 <code class="docutils literal notranslate"><span class="pre">Profile</span></code> instances.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Notice that the same <code class="docutils literal notranslate"><span class="pre">Car</span></code> instance is used in the first and final generated example. When the coverage examples for a field are exhausted before another field, values for that field are re-used.</p>
@@ -856,10 +845,19 @@ document.write(`
     <span class="n">__model__</span> <span class="o">=</span> <span class="n">SocialGroup</span>
 
 
-<span class="n">group</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">SocialGroupFactory</span><span class="o">.</span><span class="n">coverage</span><span class="p">())</span>
+<span class="k">def</span> <span class="nf">test_social_group_coverage</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">groups</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">SocialGroupFactory</span><span class="o">.</span><span class="n">coverage</span><span class="p">())</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
 
-<span class="c1"># &gt;&gt;&gt; print(group)</span>
-<span class="c1"># &gt;&gt;&gt; SocialGroup(members=[Profile(...), Profile(...), Profile(...)])</span>
+    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="o">.</span><span class="n">members</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+
+    <span class="k">assert</span> <span class="n">groups</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">members</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">favourite_color</span> <span class="o">==</span> <span class="s2">&quot;red&quot;</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">groups</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">members</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">Car</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">groups</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">members</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">favourite_color</span> <span class="o">==</span> <span class="s2">&quot;green&quot;</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">groups</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">members</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">Boat</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">groups</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">members</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">favourite_color</span> <span class="o">==</span> <span class="s2">&quot;blue&quot;</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">groups</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">members</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">Car</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
