@@ -974,8 +974,6 @@ document.write(`
     <span class="n">book</span> <span class="o">=</span> <span class="n">BaseFactory</span><span class="o">.</span><span class="n">create_factory</span><span class="p">(</span><span class="n">Book</span><span class="p">)</span><span class="o">.</span><span class="n">create_sync</span><span class="p">()</span>
     <span class="k">assert</span> <span class="n">book</span><span class="o">.</span><span class="n">id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
     <span class="k">assert</span> <span class="n">book</span><span class="o">.</span><span class="n">author</span><span class="o">.</span><span class="n">books</span> <span class="o">==</span> <span class="p">[</span><span class="n">book</span><span class="p">]</span>
-
-    <span class="n">BaseFactory</span><span class="o">.</span><span class="n">_base_factories</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">BaseFactory</span><span class="p">)</span>  <span class="c1"># noqa: SLF001</span>
 </pre></div>
 </div>
 </div>
