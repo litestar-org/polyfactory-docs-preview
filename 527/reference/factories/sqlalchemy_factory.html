@@ -122,6 +122,9 @@
   </div>
         
         <div class="sy-head-socials flex items-center">
+    <a href="https://github.com/litestar-org/polyfactory" aria-label="GitHub">
+      <i class="i-simpleicons github"></i>
+    </a>
   <a href="https://twitter.com/LitestarAPI" aria-label="X (Twitter)">
     <i class="i-simpleicons x-twitter"></i>
   </a>
@@ -457,7 +460,8 @@ For example, the ‘DataclassFactory’, ‘TypedDictFactory’ and ‘ModelFact
 <dl class="py method">
 <dt class="sig sig-object py" id="polyfactory.factories.sqlalchemy_factory.SQLAlchemyFactory.get_sqlalchemy_types">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_sqlalchemy_types</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/polyfactory/factories/sqlalchemy_factory.html#SQLAlchemyFactory.get_sqlalchemy_types"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyfactory.factories.sqlalchemy_factory.SQLAlchemyFactory.get_sqlalchemy_types" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get mapping of types where column type.</p>
+<dd><p>Get mapping of types where column type.
+for sqlalchemy dialect <cite>JSON</cite> type, accepted only basic types in pydict in case sqlalchemy process <cite>JSON</cite> raise serialize error.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -555,6 +559,7 @@ For example, the ‘DataclassFactory’, ‘TypedDictFactory’ and ‘ModelFact
   </p>
 </div>
       <div class="sy-foot-socials">
+  <a href="https://github.com/litestar-org/polyfactory" aria-label="GitHub"><i class="i-simpleicons github"></i></a>
   <a href="https://twitter.com/LitestarAPI" aria-label="X (Twitter)"><i class="i-simpleicons x-twitter"></i></a>
   <a href="https://discord.gg/litestar" aria-label="Discord"><i class="i-simpleicons discord"></i></a>
   <a href="https://www.reddit.com/r/LitestarAPI" aria-label="Reddit"><i class="i-simpleicons reddit"></i></a>
@@ -562,7 +567,7 @@ For example, the ‘DataclassFactory’, ‘TypedDictFactory’ and ‘ModelFact
     </div>
   </div>
 </footer></div>
-      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=513ef7ff"></script>
+      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=fc6e8733"></script>
       <script src="../../_static/doctools.js?v=888ff710"></script>
       <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
