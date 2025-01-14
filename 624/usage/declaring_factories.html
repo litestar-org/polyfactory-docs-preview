@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" data-accent-color="amber" data-content_root="">
+<html lang="en" data-accent-color="amber" data-content_root="../">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Declaring Factories - Polyfactory</title><link rel="shortcut icon" href="../_static/favicon.svg"/><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Polyfactory Factories" href="library_factories/index.html" /><link rel="prev" title="Usage Guide" href="index.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=397bb51e" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=83eaa723" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=10d1008b" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx_paramlinks.css" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
     <link rel="stylesheet" type="text/css" href="../_static/style.css" />
@@ -267,29 +267,29 @@ data-aria-dark="Switch to auto color mode">
       <div class="min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
         <article class="yue" role="main">
           <section id="declaring-factories">
-<h1>Declaring Factories<a class="headerlink" href="#declaring-factories" title="Permalink to this heading">¶</a></h1>
+<h1>Declaring Factories<a class="headerlink" href="#declaring-factories" title="Link to this heading">¶</a></h1>
 <p>Defining factories is done using a declarative syntax. That is - users declare factory classes, which are subclasses of
 base factories.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Declaring a factory for a dataclass</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<div class="code-block-caption"><span class="caption-text">Declaring a factory for a dataclass</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
 </span><span data-line="2">
-</span><span data-line="3"><span class="kn">from</span> <span class="nn">polyfactory.factories</span> <span class="kn">import</span> <span class="n">DataclassFactory</span>
+</span><span data-line="3"><span class="kn">from</span><span class="w"> </span><span class="nn">polyfactory.factories</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataclassFactory</span>
 </span><span data-line="4">
 </span><span data-line="5">
 </span><span data-line="6"><span class="nd">@dataclass</span>
-</span><span data-line="7"><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+</span><span data-line="7"><span class="k">class</span><span class="w"> </span><span class="nc">Person</span><span class="p">:</span>
 </span><span data-line="8">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
 </span><span data-line="9">    <span class="n">age</span><span class="p">:</span> <span class="nb">float</span>
 </span><span data-line="10">    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span>
 </span><span data-line="11">    <span class="n">weight</span><span class="p">:</span> <span class="nb">float</span>
 </span><span data-line="12">
 </span><span data-line="13">
-</span><span data-line="14"><span class="k">class</span> <span class="nc">PersonFactory</span><span class="p">(</span><span class="n">DataclassFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span>
+</span><span data-line="14"><span class="k">class</span><span class="w"> </span><span class="nc">PersonFactory</span><span class="p">(</span><span class="n">DataclassFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span>
 </span><span data-line="15">    <span class="n">__model__</span> <span class="o">=</span> <span class="n">Person</span>
 </span><span data-line="16">
 </span><span data-line="17">
-</span><span data-line="18"><span class="k">def</span> <span class="nf">test_is_person</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="18"><span class="k">def</span><span class="w"> </span><span class="nf">test_is_person</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span data-line="19">    <span class="n">person_instance</span> <span class="o">=</span> <span class="n">PersonFactory</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </span><span data-line="20">    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">person_instance</span><span class="p">,</span> <span class="n">Person</span><span class="p">)</span>
 </span><span data-line="21">    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">person_instance</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
@@ -301,13 +301,13 @@ base factories.</p>
 </div>
 <p>You can also specify the model type by only specifying the factory generic type parameter.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="nd">@dataclass</span>
-</span><span data-line="2"><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+</span><span data-line="2"><span class="k">class</span><span class="w"> </span><span class="nc">Person</span><span class="p">:</span>
 </span><span data-line="3">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
 </span><span data-line="4">    <span class="n">age</span><span class="p">:</span> <span class="nb">float</span>
 </span><span data-line="5">    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span>
 </span><span data-line="6">    <span class="n">weight</span><span class="p">:</span> <span class="nb">float</span>
 </span><span data-line="7">
-</span><span data-line="8"><span class="k">class</span> <span class="nc">PersonFactory</span><span class="p">(</span><span class="n">DataclassFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span>
+</span><span data-line="8"><span class="k">class</span><span class="w"> </span><span class="nc">PersonFactory</span><span class="p">(</span><span class="n">DataclassFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span>
 </span><span data-line="9">    <span class="o">...</span>
 </span></pre></div>
 </div>
@@ -318,23 +318,23 @@ is only available since version 2.13.0.</p>
 </div>
 <p>The same applies to the other factories exported by this library, for example:</p>
 <div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Declaring a factory for a typed-dict</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypedDict</span>
+<div class="code-block-caption"><span class="caption-text">Declaring a factory for a typed-dict</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDict</span>
 </span><span data-line="2">
-</span><span data-line="3"><span class="kn">from</span> <span class="nn">polyfactory.factories</span> <span class="kn">import</span> <span class="n">TypedDictFactory</span>
+</span><span data-line="3"><span class="kn">from</span><span class="w"> </span><span class="nn">polyfactory.factories</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDictFactory</span>
 </span><span data-line="4">
 </span><span data-line="5">
-</span><span data-line="6"><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+</span><span data-line="6"><span class="k">class</span><span class="w"> </span><span class="nc">Person</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
 </span><span data-line="7">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
 </span><span data-line="8">    <span class="n">age</span><span class="p">:</span> <span class="nb">float</span>
 </span><span data-line="9">    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span>
 </span><span data-line="10">    <span class="n">weight</span><span class="p">:</span> <span class="nb">float</span>
 </span><span data-line="11">
 </span><span data-line="12">
-</span><span data-line="13"><span class="k">class</span> <span class="nc">PersonFactory</span><span class="p">(</span><span class="n">TypedDictFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span> <span class="o">...</span>
+</span><span data-line="13"><span class="k">class</span><span class="w"> </span><span class="nc">PersonFactory</span><span class="p">(</span><span class="n">TypedDictFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span> <span class="o">...</span>
 </span><span data-line="14">
 </span><span data-line="15">
-</span><span data-line="16"><span class="k">def</span> <span class="nf">test_is_person</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="16"><span class="k">def</span><span class="w"> </span><span class="nf">test_is_person</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span data-line="17">    <span class="n">person_instance</span> <span class="o">=</span> <span class="n">PersonFactory</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </span><span data-line="18">    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">person_instance</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
 </span><span data-line="19">    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">person_instance</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
@@ -346,23 +346,23 @@ is only available since version 2.13.0.</p>
 </div>
 <p>Or for pydantic models:</p>
 <div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Declaring a factory for a pydantic model</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+<div class="code-block-caption"><span class="caption-text">Declaring a factory for a pydantic model</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
 </span><span data-line="2">
-</span><span data-line="3"><span class="kn">from</span> <span class="nn">polyfactory.factories.pydantic_factory</span> <span class="kn">import</span> <span class="n">ModelFactory</span>
+</span><span data-line="3"><span class="kn">from</span><span class="w"> </span><span class="nn">polyfactory.factories.pydantic_factory</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelFactory</span>
 </span><span data-line="4">
 </span><span data-line="5">
-</span><span data-line="6"><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+</span><span data-line="6"><span class="k">class</span><span class="w"> </span><span class="nc">Person</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
 </span><span data-line="7">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
 </span><span data-line="8">    <span class="n">age</span><span class="p">:</span> <span class="nb">float</span>
 </span><span data-line="9">    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span>
 </span><span data-line="10">    <span class="n">weight</span><span class="p">:</span> <span class="nb">float</span>
 </span><span data-line="11">
 </span><span data-line="12">
-</span><span data-line="13"><span class="k">class</span> <span class="nc">PersonFactory</span><span class="p">(</span><span class="n">ModelFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span> <span class="o">...</span>
+</span><span data-line="13"><span class="k">class</span><span class="w"> </span><span class="nc">PersonFactory</span><span class="p">(</span><span class="n">ModelFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span> <span class="o">...</span>
 </span><span data-line="14">
 </span><span data-line="15">
-</span><span data-line="16"><span class="k">def</span> <span class="nf">test_is_person</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="16"><span class="k">def</span><span class="w"> </span><span class="nf">test_is_person</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span data-line="17">    <span class="n">person_instance</span> <span class="o">=</span> <span class="n">PersonFactory</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </span><span data-line="18">    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">person_instance</span><span class="p">,</span> <span class="n">Person</span><span class="p">)</span>
 </span><span data-line="19">    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">person_instance</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
@@ -377,24 +377,24 @@ is only available since version 2.13.0.</p>
 <p>You can also define factories for any 3rd party implementation of dataclasses, as long as it fulfills the stdlib
 dataclasses interface. For example, this is using the pydantic <code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> decorator:</p>
 <div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Declaring a factory for a pydantic dataclass</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span> <span class="nn">pydantic.dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<div class="code-block-caption"><span class="caption-text">Declaring a factory for a pydantic dataclass</span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic.dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
 </span><span data-line="2">
-</span><span data-line="3"><span class="kn">from</span> <span class="nn">polyfactory.factories</span> <span class="kn">import</span> <span class="n">DataclassFactory</span>
+</span><span data-line="3"><span class="kn">from</span><span class="w"> </span><span class="nn">polyfactory.factories</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataclassFactory</span>
 </span><span data-line="4">
 </span><span data-line="5">
 </span><span data-line="6"><span class="nd">@dataclass</span>
-</span><span data-line="7"><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+</span><span data-line="7"><span class="k">class</span><span class="w"> </span><span class="nc">Person</span><span class="p">:</span>
 </span><span data-line="8">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
 </span><span data-line="9">    <span class="n">age</span><span class="p">:</span> <span class="nb">float</span>
 </span><span data-line="10">    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span>
 </span><span data-line="11">    <span class="n">weight</span><span class="p">:</span> <span class="nb">float</span>
 </span><span data-line="12">
 </span><span data-line="13">
-</span><span data-line="14"><span class="k">class</span> <span class="nc">PersonFactory</span><span class="p">(</span><span class="n">DataclassFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span> <span class="o">...</span>
+</span><span data-line="14"><span class="k">class</span><span class="w"> </span><span class="nc">PersonFactory</span><span class="p">(</span><span class="n">DataclassFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span> <span class="o">...</span>
 </span><span data-line="15">
 </span><span data-line="16">
-</span><span data-line="17"><span class="k">def</span> <span class="nf">test_is_person</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="17"><span class="k">def</span><span class="w"> </span><span class="nf">test_is_person</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span data-line="18">    <span class="n">person_instance</span> <span class="o">=</span> <span class="n">PersonFactory</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </span><span data-line="19">    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">person_instance</span><span class="p">,</span> <span class="n">Person</span><span class="p">)</span>
 </span><span data-line="20">    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">person_instance</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
@@ -407,18 +407,18 @@ dataclasses interface. For example, this is using the pydantic <code class="docu
 </div>
 <p>Or for attrs models:</p>
 <div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Declaring a factory for a attrs model</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">datetime</span>
-</span><span data-line="2"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
-</span><span data-line="3"><span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">UUID</span>
+<div class="code-block-caption"><span class="caption-text">Declaring a factory for a attrs model</span><a class="headerlink" href="#id5" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">datetime</span>
+</span><span data-line="2"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+</span><span data-line="3"><span class="kn">from</span><span class="w"> </span><span class="nn">uuid</span><span class="w"> </span><span class="kn">import</span> <span class="n">UUID</span>
 </span><span data-line="4">
-</span><span data-line="5"><span class="kn">import</span> <span class="nn">attrs</span>
+</span><span data-line="5"><span class="kn">import</span><span class="w"> </span><span class="nn">attrs</span>
 </span><span data-line="6">
-</span><span data-line="7"><span class="kn">from</span> <span class="nn">polyfactory.factories.attrs_factory</span> <span class="kn">import</span> <span class="n">AttrsFactory</span>
+</span><span data-line="7"><span class="kn">from</span><span class="w"> </span><span class="nn">polyfactory.factories.attrs_factory</span><span class="w"> </span><span class="kn">import</span> <span class="n">AttrsFactory</span>
 </span><span data-line="8">
 </span><span data-line="9">
 </span><span data-line="10"><span class="nd">@attrs</span><span class="o">.</span><span class="n">define</span>
-</span><span data-line="11"><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+</span><span data-line="11"><span class="k">class</span><span class="w"> </span><span class="nc">Person</span><span class="p">:</span>
 </span><span data-line="12">    <span class="nb">id</span><span class="p">:</span> <span class="n">UUID</span>
 </span><span data-line="13">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
 </span><span data-line="14">    <span class="n">hobbies</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
@@ -429,10 +429,10 @@ dataclasses interface. For example, this is using the pydantic <code class="docu
 </span><span data-line="19">    <span class="n">_assets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]]</span>
 </span><span data-line="20">
 </span><span data-line="21">
-</span><span data-line="22"><span class="k">class</span> <span class="nc">PersonFactory</span><span class="p">(</span><span class="n">AttrsFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span> <span class="o">...</span>
+</span><span data-line="22"><span class="k">class</span><span class="w"> </span><span class="nc">PersonFactory</span><span class="p">(</span><span class="n">AttrsFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span> <span class="o">...</span>
 </span><span data-line="23">
 </span><span data-line="24">
-</span><span data-line="25"><span class="k">def</span> <span class="nf">test_person_factory</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="25"><span class="k">def</span><span class="w"> </span><span class="nf">test_person_factory</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span data-line="26">    <span class="n">person</span> <span class="o">=</span> <span class="n">PersonFactory</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </span><span data-line="27">
 </span><span data-line="28">    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">person</span><span class="p">,</span> <span class="n">Person</span><span class="p">)</span>
@@ -445,36 +445,36 @@ dataclasses interface. For example, this is using the pydantic <code class="docu
 with <cite>attrs</cite> nor custom validators.</p>
 </div>
 <section id="imperative-factory-creation">
-<h2>Imperative Factory Creation<a class="headerlink" href="#imperative-factory-creation" title="Permalink to this heading">¶</a></h2>
+<h2>Imperative Factory Creation<a class="headerlink" href="#imperative-factory-creation" title="Link to this heading">¶</a></h2>
 <p>Although the definition of factories is primarily meant to be done declaratively, factories expose the
 <a class="reference internal" href="../reference/factories/base.html#polyfactory.factories.base.BaseFactory.create_factory" title="polyfactory.factories.base.BaseFactory.create_factory"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_factory</span></code></a> method. This method is used internally
 inside factories to dynamically create factories for models. For example, below the <code class="docutils literal notranslate"><span class="pre">PersonFactory</span></code> will dynamically
 create a <code class="docutils literal notranslate"><span class="pre">PetFactory</span></code>:</p>
 <div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Dynamic factory generation</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-</span><span data-line="2"><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">datetime</span>
-</span><span data-line="3"><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
-</span><span data-line="4"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
-</span><span data-line="5"><span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">UUID</span>
+<div class="code-block-caption"><span class="caption-text">Dynamic factory generation</span><a class="headerlink" href="#id6" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+</span><span data-line="2"><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">datetime</span>
+</span><span data-line="3"><span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+</span><span data-line="4"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+</span><span data-line="5"><span class="kn">from</span><span class="w"> </span><span class="nn">uuid</span><span class="w"> </span><span class="kn">import</span> <span class="n">UUID</span>
 </span><span data-line="6">
-</span><span data-line="7"><span class="kn">from</span> <span class="nn">polyfactory.factories</span> <span class="kn">import</span> <span class="n">DataclassFactory</span>
+</span><span data-line="7"><span class="kn">from</span><span class="w"> </span><span class="nn">polyfactory.factories</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataclassFactory</span>
 </span><span data-line="8">
 </span><span data-line="9">
-</span><span data-line="10"><span class="k">class</span> <span class="nc">Species</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+</span><span data-line="10"><span class="k">class</span><span class="w"> </span><span class="nc">Species</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
 </span><span data-line="11">    <span class="n">CAT</span> <span class="o">=</span> <span class="s2">&quot;Cat&quot;</span>
 </span><span data-line="12">    <span class="n">DOG</span> <span class="o">=</span> <span class="s2">&quot;Dog&quot;</span>
 </span><span data-line="13">
 </span><span data-line="14">
 </span><span data-line="15"><span class="nd">@dataclass</span>
-</span><span data-line="16"><span class="k">class</span> <span class="nc">Pet</span><span class="p">:</span>
+</span><span data-line="16"><span class="k">class</span><span class="w"> </span><span class="nc">Pet</span><span class="p">:</span>
 </span><span data-line="17">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
 </span><span data-line="18">    <span class="n">species</span><span class="p">:</span> <span class="n">Species</span>
 </span><span data-line="19">    <span class="n">sound</span><span class="p">:</span> <span class="nb">str</span>
 </span><span data-line="20">
 </span><span data-line="21">
 </span><span data-line="22"><span class="nd">@dataclass</span>
-</span><span data-line="23"><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+</span><span data-line="23"><span class="k">class</span><span class="w"> </span><span class="nc">Person</span><span class="p">:</span>
 </span><span data-line="24">    <span class="nb">id</span><span class="p">:</span> <span class="n">UUID</span>
 </span><span data-line="25">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
 </span><span data-line="26">    <span class="n">hobbies</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
@@ -484,10 +484,10 @@ create a <code class="docutils literal notranslate"><span class="pre">PetFactory
 </span><span data-line="30">    <span class="n">assets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]]</span>
 </span><span data-line="31">
 </span><span data-line="32">
-</span><span data-line="33"><span class="k">class</span> <span class="nc">PersonFactory</span><span class="p">(</span><span class="n">DataclassFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span> <span class="o">...</span>
+</span><span data-line="33"><span class="k">class</span><span class="w"> </span><span class="nc">PersonFactory</span><span class="p">(</span><span class="n">DataclassFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span> <span class="o">...</span>
 </span><span data-line="34">
 </span><span data-line="35">
-</span><span data-line="36"><span class="k">def</span> <span class="nf">test_dynamic_factory_generation</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="36"><span class="k">def</span><span class="w"> </span><span class="nf">test_dynamic_factory_generation</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span data-line="37">    <span class="n">person_instance</span> <span class="o">=</span> <span class="n">PersonFactory</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </span><span data-line="38">    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">person_instance</span><span class="o">.</span><span class="n">pets</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
 </span><span data-line="39">    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">person_instance</span><span class="o">.</span><span class="n">pets</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Pet</span><span class="p">)</span>
@@ -496,26 +496,26 @@ create a <code class="docutils literal notranslate"><span class="pre">PetFactory
 </div>
 <p>You can also use this method to create factories imperatively:</p>
 <div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Imperative factory creation</span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-</span><span data-line="2"><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<div class="code-block-caption"><span class="caption-text">Imperative factory creation</span><a class="headerlink" href="#id7" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+</span><span data-line="2"><span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
 </span><span data-line="3">
-</span><span data-line="4"><span class="kn">from</span> <span class="nn">polyfactory.factories</span> <span class="kn">import</span> <span class="n">DataclassFactory</span>
+</span><span data-line="4"><span class="kn">from</span><span class="w"> </span><span class="nn">polyfactory.factories</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataclassFactory</span>
 </span><span data-line="5">
 </span><span data-line="6">
-</span><span data-line="7"><span class="k">class</span> <span class="nc">Species</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+</span><span data-line="7"><span class="k">class</span><span class="w"> </span><span class="nc">Species</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
 </span><span data-line="8">    <span class="n">CAT</span> <span class="o">=</span> <span class="s2">&quot;Cat&quot;</span>
 </span><span data-line="9">    <span class="n">DOG</span> <span class="o">=</span> <span class="s2">&quot;Dog&quot;</span>
 </span><span data-line="10">
 </span><span data-line="11">
 </span><span data-line="12"><span class="nd">@dataclass</span>
-</span><span data-line="13"><span class="k">class</span> <span class="nc">Pet</span><span class="p">:</span>
+</span><span data-line="13"><span class="k">class</span><span class="w"> </span><span class="nc">Pet</span><span class="p">:</span>
 </span><span data-line="14">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
 </span><span data-line="15">    <span class="n">species</span><span class="p">:</span> <span class="n">Species</span>
 </span><span data-line="16">    <span class="n">sound</span><span class="p">:</span> <span class="nb">str</span>
 </span><span data-line="17">
 </span><span data-line="18">
-</span><span data-line="19"><span class="k">def</span> <span class="nf">test_imperative_factory_creation</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="19"><span class="k">def</span><span class="w"> </span><span class="nf">test_imperative_factory_creation</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span data-line="20">    <span class="n">pet_factory</span> <span class="o">=</span> <span class="n">DataclassFactory</span><span class="o">.</span><span class="n">create_factory</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">Pet</span><span class="p">)</span>
 </span><span data-line="21">    <span class="n">pet_instance</span> <span class="o">=</span> <span class="n">pet_factory</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </span><span data-line="22">    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pet_instance</span><span class="p">,</span> <span class="n">Pet</span><span class="p">)</span>
@@ -524,14 +524,14 @@ create a <code class="docutils literal notranslate"><span class="pre">PetFactory
 </div>
 <p>Eventually you can use this method on an existing concrete factory to create a sub factory overriding some parent configuration:</p>
 <div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">Imperative sub factory creation</span><a class="headerlink" href="#id8" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-</span><span data-line="2"><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<div class="code-block-caption"><span class="caption-text">Imperative sub factory creation</span><a class="headerlink" href="#id8" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+</span><span data-line="2"><span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
 </span><span data-line="3">
-</span><span data-line="4"><span class="kn">from</span> <span class="nn">polyfactory.factories</span> <span class="kn">import</span> <span class="n">DataclassFactory</span>
+</span><span data-line="4"><span class="kn">from</span><span class="w"> </span><span class="nn">polyfactory.factories</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataclassFactory</span>
 </span><span data-line="5">
 </span><span data-line="6">
-</span><span data-line="7"><span class="k">class</span> <span class="nc">Species</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+</span><span data-line="7"><span class="k">class</span><span class="w"> </span><span class="nc">Species</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
 </span><span data-line="8">    <span class="n">CAT</span> <span class="o">=</span> <span class="s2">&quot;Cat&quot;</span>
 </span><span data-line="9">    <span class="n">DOG</span> <span class="o">=</span> <span class="s2">&quot;Dog&quot;</span>
 </span><span data-line="10">    <span class="n">RABBIT</span> <span class="o">=</span> <span class="s2">&quot;Rabbit&quot;</span>
@@ -539,13 +539,13 @@ create a <code class="docutils literal notranslate"><span class="pre">PetFactory
 </span><span data-line="12">
 </span><span data-line="13">
 </span><span data-line="14"><span class="nd">@dataclass</span>
-</span><span data-line="15"><span class="k">class</span> <span class="nc">Pet</span><span class="p">:</span>
+</span><span data-line="15"><span class="k">class</span><span class="w"> </span><span class="nc">Pet</span><span class="p">:</span>
 </span><span data-line="16">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
 </span><span data-line="17">    <span class="n">species</span><span class="p">:</span> <span class="n">Species</span>
 </span><span data-line="18">    <span class="n">sound</span><span class="p">:</span> <span class="nb">str</span>
 </span><span data-line="19">
 </span><span data-line="20">
-</span><span data-line="21"><span class="k">def</span> <span class="nf">test_imperative_sub_factory_creation</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="21"><span class="k">def</span><span class="w"> </span><span class="nf">test_imperative_sub_factory_creation</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span data-line="22">    <span class="n">pet_factory</span> <span class="o">=</span> <span class="n">DataclassFactory</span><span class="o">.</span><span class="n">create_factory</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">Pet</span><span class="p">)</span>
 </span><span data-line="23">    <span class="n">cat_factory</span> <span class="o">=</span> <span class="n">pet_factory</span><span class="o">.</span><span class="n">create_factory</span><span class="p">(</span><span class="n">species</span><span class="o">=</span><span class="n">Species</span><span class="o">.</span><span class="n">CAT</span><span class="p">)</span>
 </span><span data-line="24">    <span class="n">cat_instance</span> <span class="o">=</span> <span class="n">cat_factory</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
@@ -585,7 +585,7 @@ create a <code class="docutils literal notranslate"><span class="pre">PetFactory
 <footer class="sy-foot">
   <div class="sy-foot-inner sy-container mx-auto">
     <div class="sy-foot-reserved md:flex justify-between items-center">
-      <div class="sy-foot-copyright"><p>2024, Litestar Organization</p>
+      <div class="sy-foot-copyright"><p>2025, Litestar Organization</p>
   
   <p>
     Made with
@@ -611,9 +611,9 @@ create a <code class="docutils literal notranslate"><span class="pre">PetFactory
     </div>
   </div>
 </footer>
-      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=44639a2e"></script>
-      <script src="../_static/doctools.js?v=888ff710"></script>
-      <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../_static/documentation_options.js?v=66194c66"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=f281be69"></script>
       <script src="../_static/litestar-theme.js?v=ab2dcc9e"></script>
@@ -621,8 +621,9 @@ create a <code class="docutils literal notranslate"><span class="pre">PetFactory
       <script>let toggleHintHide = 'Click to hide';</script>
       <script>let toggleOpenOnPrint = 'true';</script>
       <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
-      <script src="../_static/design-tabs.js?v=36754332"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
       <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-      <script src="../_static/shibuya.js?v=e2e99575"></script>
+      <script src="../_static/shibuya.js?v=55e26b35"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
       <script src="../_static/versioning.js"></script></body>
 </html>
