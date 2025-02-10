@@ -246,12 +246,9 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#polyfactory.factories.base.BaseFactory.get_model_fields"><code class="docutils literal notranslate">get_model_fields()</span></code></a></li>
 <li><a class="reference internal" href="#polyfactory.factories.base.BaseFactory.get_factory_fields"><code class="docutils literal notranslate">get_factory_fields()</span></code></a></li>
 <li><a class="reference internal" href="#polyfactory.factories.base.BaseFactory.process_kwargs"><code class="docutils literal notranslate">process_kwargs()</span></code></a></li>
-<li><a class="reference internal" href="#polyfactory.factories.base.BaseFactory.async_process_kwargs"><code class="docutils literal notranslate">async_process_kwargs()</span></code></a></li>
 <li><a class="reference internal" href="#polyfactory.factories.base.BaseFactory.process_kwargs_coverage"><code class="docutils literal notranslate">process_kwargs_coverage()</span></code></a></li>
 <li><a class="reference internal" href="#polyfactory.factories.base.BaseFactory.build"><code class="docutils literal notranslate">build()</span></code></a></li>
-<li><a class="reference internal" href="#polyfactory.factories.base.BaseFactory.build_async"><code class="docutils literal notranslate">build_async()</span></code></a></li>
 <li><a class="reference internal" href="#polyfactory.factories.base.BaseFactory.batch"><code class="docutils literal notranslate">batch()</span></code></a></li>
-<li><a class="reference internal" href="#polyfactory.factories.base.BaseFactory.batch_async"><code class="docutils literal notranslate">batch_async()</span></code></a></li>
 <li><a class="reference internal" href="#polyfactory.factories.base.BaseFactory.coverage"><code class="docutils literal notranslate">coverage()</span></code></a></li>
 <li><a class="reference internal" href="#polyfactory.factories.base.BaseFactory.create_sync"><code class="docutils literal notranslate">create_sync()</span></code></a></li>
 <li><a class="reference internal" href="#polyfactory.factories.base.BaseFactory.create_batch_sync"><code class="docutils literal notranslate">create_batch_sync()</span></code></a></li>
@@ -694,20 +691,6 @@ ignoring dunder methods and some parent class attributes.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="polyfactory.factories.base.BaseFactory.async_process_kwargs">
-<em class="property"><span class="pre">async</span><span class="w"> </span><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">async_process_kwargs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/polyfactory/factories/base.html#BaseFactory.async_process_kwargs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyfactory.factories.base.BaseFactory.async_process_kwargs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Process the given kwargs and generate values for the factory’s model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="target" id="polyfactory.factories.base.BaseFactory.async_process_kwargs.params.kwargs"></span><strong>kwargs</strong><a class="paramlink headerlink reference internal" href="#polyfactory.factories.base.BaseFactory.async_process_kwargs.params.kwargs">¶</a> – Any build kwargs.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary of build results.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="polyfactory.factories.base.BaseFactory.process_kwargs_coverage">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process_kwargs_coverage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.13)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/polyfactory/factories/base.html#BaseFactory.process_kwargs_coverage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyfactory.factories.base.BaseFactory.process_kwargs_coverage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Process the given kwargs and generate values for the factory’s model.</p>
@@ -739,45 +722,14 @@ ignoring dunder methods and some parent class attributes.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="polyfactory.factories.base.BaseFactory.build_async">
-<em class="property"><span class="pre">async</span><span class="w"> </span><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../../_modules/polyfactory/factories/base.html#BaseFactory.build_async"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyfactory.factories.base.BaseFactory.build_async" title="Permalink to this definition">¶</a></dt>
-<dd><p>Build asynchronously an instance of the factory’s __model__</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="target" id="polyfactory.factories.base.BaseFactory.build_async.params.kwargs"></span><strong>kwargs</strong><a class="paramlink headerlink reference internal" href="#polyfactory.factories.base.BaseFactory.build_async.params.kwargs">¶</a> – Any kwargs. If field names are set in kwargs, their values will be used.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An instance of type T.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="polyfactory.factories.base.BaseFactory.batch">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/polyfactory/factories/base.html#BaseFactory.batch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyfactory.factories.base.BaseFactory.batch" title="Permalink to this definition">¶</a></dt>
-<dd><p>Build synchronously a batch of size n of the factory’s Meta.model.</p>
+<dd><p>Build a batch of size n of the factory’s Meta.model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><span class="target" id="polyfactory.factories.base.BaseFactory.batch.params.size"></span><strong>size</strong><a class="paramlink headerlink reference internal" href="#polyfactory.factories.base.BaseFactory.batch.params.size">¶</a> – Size of the batch.</p></li>
 <li><p><span class="target" id="polyfactory.factories.base.BaseFactory.batch.params.kwargs"></span><strong>kwargs</strong><a class="paramlink headerlink reference internal" href="#polyfactory.factories.base.BaseFactory.batch.params.kwargs">¶</a> – Any kwargs. If field_meta names are set in kwargs, their values will be used.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A list of instances of type T.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="polyfactory.factories.base.BaseFactory.batch_async">
-<em class="property"><span class="pre">async</span><span class="w"> </span><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/polyfactory/factories/base.html#BaseFactory.batch_async"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyfactory.factories.base.BaseFactory.batch_async" title="Permalink to this definition">¶</a></dt>
-<dd><p>Build asynchronously a batch of size n of the factory’s Meta.model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="polyfactory.factories.base.BaseFactory.batch_async.params.size"></span><strong>size</strong><a class="paramlink headerlink reference internal" href="#polyfactory.factories.base.BaseFactory.batch_async.params.size">¶</a> – Size of the batch.</p></li>
-<li><p><span class="target" id="polyfactory.factories.base.BaseFactory.batch_async.params.kwargs"></span><strong>kwargs</strong><a class="paramlink headerlink reference internal" href="#polyfactory.factories.base.BaseFactory.batch_async.params.kwargs">¶</a> – Any kwargs. If field_meta names are set in kwargs, their values will be used.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
