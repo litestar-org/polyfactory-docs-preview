@@ -217,8 +217,8 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#the-require-field">The <code class="docutils literal notranslate"><span class="pre">Require</span></code> Field</a></li>
 <li><a class="reference internal" href="#the-postgenerated-field">The <code class="docutils literal notranslate"><span class="pre">PostGenerated</span></code> Field</a></li>
 <li><a class="reference internal" href="#the-param-field">The <code class="docutils literal notranslate"><span class="pre">Param</span></code> Field</a></li>
-<li><a class="reference internal" href="#the-callableparam-field">The <code class="docutils literal notranslate"><span class="pre">CallableParam</span></code> Field</a></li>
 <li><a class="reference internal" href="#factories-as-fields">Factories as Fields</a></li>
+<li><a class="reference internal" href="#handling-asynchronous-data-in-factory-fields">Handling Asynchronous Data in Factory Fields</a></li>
 </ul>
 </div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/litestar-org/polyfactory"
   data-type="github" data-user="litestar-org" data-repo="polyfactory">
@@ -615,11 +615,12 @@ name in the values dictionary.</p>
 </section>
 <section id="the-param-field">
 <h2>The <code class="docutils literal notranslate"><span class="pre">Param</span></code> Field<a class="headerlink" href="#the-param-field" title="Permalink to this heading">¶</a></h2>
-<p>The <a class="reference internal" href="../reference/fields.html#polyfactory.fields.Param" title="polyfactory.fields.Param"><code class="xref py py-class docutils literal notranslate"><span class="pre">Param</span></code></a> class denotes a constant parameter that can be referenced by other fields at build but is not mapped to the final object. This is useful for passing values needed by other factory fields but that are not part of object being built.</p>
-<p>The Param type can either accept a constant value at the definition of the factory, or its value can be set at build time.</p>
-<p>If neither a value is provided at the definition of the factory nor at build time, an exception will be raised.</p>
+<p>The <a class="reference internal" href="../reference/fields.html#polyfactory.fields.Param" title="polyfactory.fields.Param"><code class="xref py py-class docutils literal notranslate"><span class="pre">Param</span></code></a> class denotes a parameter that can be referenced by other fields at build but whose value is not set on the final object. This is useful for passing values needed by other factory fields but that are not part of object being built.</p>
+<p>A Param type can be either a constant or a callable. If a callable is used, it will be executed at the beginning of build and its return value will be used as the value for the field. Optional keyword arguments may be passed to the callable as part of the field definition on the factory. Any additional keyword arguments passed to the Param constructor will also not be mapped into the final object.</p>
+<p>The Param type allows for flexibility in that it can either accept a value at the definition of the factory, or its value can be set at build time. If a value is provided at build time, it will take precedence over the value provided at the definition of the factory (if any).</p>
+<p>If neither a value is provided at the definition of the factory nor at build time, an exception will be raised. Likewise, a Param cannot have the same name as any other model field.</p>
 <div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">Using the <code class="docutils literal notranslate"><span class="pre">Param</span></code> field</span><a class="headerlink" href="#id8" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">Using the <code class="docutils literal notranslate"><span class="pre">Param</span></code> field with a constant</span><a class="headerlink" href="#id8" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 </span><span data-line="2"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 </span><span data-line="3">
@@ -675,20 +676,13 @@ name in the values dictionary.</p>
 </span></pre></div>
 </div>
 </div>
-</section>
-<section id="the-callableparam-field">
-<h2>The <code class="docutils literal notranslate"><span class="pre">CallableParam</span></code> Field<a class="headerlink" href="#the-callableparam-field" title="Permalink to this heading">¶</a></h2>
-<p>The <a class="reference internal" href="../reference/fields.html#polyfactory.fields.CallableParam" title="polyfactory.fields.CallableParam"><code class="xref py py-class docutils literal notranslate"><span class="pre">CallableParam</span></code></a> class denotes a callable parameter with a return value that may be referenced by other fields during build but is not mapped to the final object. Optional keyword arguments may be passed to the callable as part of the field definition on the factory. Any additional keyword arguments passed to the build method will also not be passed to the final object.</p>
-<p>The CallableParam type can either accept a callable provided at the definition of the factory, or its value can be passed at build time. The callable is executed at the beginning of build.</p>
-<p>If neither a value is provided at the definition of the factory nor at build time, an exception will be raised.</p>
-<p>The difference between a Param and a CallableParam is that the CallableParam is always executed at build time. If you need to pass an unmapped callable to the factory that should not automatically be executed at build time, use a Param.</p>
 <div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Using the <code class="docutils literal notranslate"><span class="pre">CallableParam</span></code> field</span><a class="headerlink" href="#id9" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">Using the <code class="docutils literal notranslate"><span class="pre">Param</span></code> field with a callable</span><a class="headerlink" href="#id9" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 </span><span data-line="2">
 </span><span data-line="3"><span class="kn">from</span> <span class="nn">polyfactory.decorators</span> <span class="kn">import</span> <span class="n">post_generated</span>
 </span><span data-line="4"><span class="kn">from</span> <span class="nn">polyfactory.factories</span> <span class="kn">import</span> <span class="n">DataclassFactory</span>
-</span><span data-line="5"><span class="kn">from</span> <span class="nn">polyfactory.fields</span> <span class="kn">import</span> <span class="n">CallableParam</span>
+</span><span data-line="5"><span class="kn">from</span> <span class="nn">polyfactory.fields</span> <span class="kn">import</span> <span class="n">Param</span>
 </span><span data-line="6">
 </span><span data-line="7">
 </span><span data-line="8"><span class="nd">@dataclass</span>
@@ -700,7 +694,7 @@ name in the values dictionary.</p>
 </span><span data-line="14"><span class="k">class</span> <span class="nc">PersonFactoryWithParamValueSpecifiedInFactory</span><span class="p">(</span><span class="n">DataclassFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span>
 </span><span data-line="15"><span class="w">    </span><span class="sd">&quot;&quot;&quot;In this factory, the next_years_age_from_calculator must be passed at build time.&quot;&quot;&quot;</span>
 </span><span data-line="16">
-</span><span data-line="17">    <span class="n">next_years_age_from_calculator</span> <span class="o">=</span> <span class="n">CallableParam</span><span class="p">[</span><span class="nb">int</span><span class="p">](</span><span class="k">lambda</span> <span class="n">age</span><span class="p">:</span> <span class="n">age</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</span><span data-line="17">    <span class="n">next_years_age_from_calculator</span> <span class="o">=</span> <span class="n">Param</span><span class="p">[</span><span class="nb">int</span><span class="p">](</span><span class="k">lambda</span> <span class="n">age</span><span class="p">:</span> <span class="n">age</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">is_callable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 </span><span data-line="18">
 </span><span data-line="19">    <span class="nd">@post_generated</span>
 </span><span data-line="20">    <span class="nd">@classmethod</span>
@@ -719,7 +713,7 @@ name in the values dictionary.</p>
 </span><span data-line="33"><span class="k">class</span> <span class="nc">PersonFactoryWithParamValueSetAtBuild</span><span class="p">(</span><span class="n">DataclassFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span>
 </span><span data-line="34"><span class="w">    </span><span class="sd">&quot;&quot;&quot;In this factory, the next_years_age_from_calculator must be passed at build time.&quot;&quot;&quot;</span>
 </span><span data-line="35">
-</span><span data-line="36">    <span class="n">next_years_age_from_calculator</span> <span class="o">=</span> <span class="n">CallableParam</span><span class="p">[</span><span class="nb">int</span><span class="p">](</span><span class="n">age</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</span><span data-line="36">    <span class="n">next_years_age_from_calculator</span> <span class="o">=</span> <span class="n">Param</span><span class="p">[</span><span class="nb">int</span><span class="p">](</span><span class="n">is_callable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 </span><span data-line="37">
 </span><span data-line="38">    <span class="nd">@post_generated</span>
 </span><span data-line="39">    <span class="nd">@classmethod</span>
@@ -794,6 +788,68 @@ name in the values dictionary.</p>
 </div>
 </div>
 </section>
+<section id="handling-asynchronous-data-in-factory-fields">
+<h2>Handling Asynchronous Data in Factory Fields<a class="headerlink" href="#handling-asynchronous-data-in-factory-fields" title="Permalink to this heading">¶</a></h2>
+<p>If you need to populate a factory field with data pre-fetched asynchronously (e.g., from a database using an ORM like SQLAlchemy or Beanie), the recommended approach is to handle the asynchronous call outside the factory and pass the resolved value as a regular argument.</p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">SQLAlchemy example</span><a class="headerlink" href="#id11" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">ForeignKey</span><span class="p">,</span> <span class="n">select</span>
+</span><span data-line="4"><span class="kn">from</span> <span class="nn">sqlalchemy.ext.asyncio</span> <span class="kn">import</span> <span class="n">AsyncSession</span><span class="p">,</span> <span class="n">create_async_engine</span>
+</span><span data-line="5"><span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">DeclarativeBase</span><span class="p">,</span> <span class="n">Mapped</span><span class="p">,</span> <span class="n">mapped_column</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="kn">from</span> <span class="nn">polyfactory.factories.sqlalchemy_factory</span> <span class="kn">import</span> <span class="n">SQLAlchemyFactory</span>
+</span><span data-line="8">
+</span><span data-line="9"><span class="n">async_engine</span> <span class="o">=</span> <span class="n">create_async_engine</span><span class="p">(</span><span class="s2">&quot;sqlite+aiosqlite:///:memory:&quot;</span><span class="p">)</span>
+</span><span data-line="10">
+</span><span data-line="11">
+</span><span data-line="12"><span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="n">DeclarativeBase</span><span class="p">):</span> <span class="o">...</span>
+</span><span data-line="13">
+</span><span data-line="14">
+</span><span data-line="15"><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+</span><span data-line="16">    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s2">&quot;users&quot;</span>
+</span><span data-line="17">
+</span><span data-line="18">    <span class="nb">id</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_column</span><span class="p">(</span><span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="19">
+</span><span data-line="20">
+</span><span data-line="21"><span class="k">class</span> <span class="nc">Department</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+</span><span data-line="22">    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s2">&quot;departments&quot;</span>
+</span><span data-line="23">
+</span><span data-line="24">    <span class="nb">id</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_column</span><span class="p">(</span><span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="25">    <span class="n">director_id</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_column</span><span class="p">(</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s2">&quot;users.id&quot;</span><span class="p">))</span>
+</span><span data-line="26">
+</span><span data-line="27">
+</span><span data-line="28"><span class="k">class</span> <span class="nc">UserFactory</span><span class="p">(</span><span class="n">SQLAlchemyFactory</span><span class="p">[</span><span class="n">User</span><span class="p">]):</span> <span class="o">...</span>
+</span><span data-line="29">
+</span><span data-line="30">
+</span><span data-line="31"><span class="k">class</span> <span class="nc">DepartmentFactory</span><span class="p">(</span><span class="n">SQLAlchemyFactory</span><span class="p">[</span><span class="n">Department</span><span class="p">]):</span> <span class="o">...</span>
+</span><span data-line="32">
+</span><span data-line="33">
+</span><span data-line="34"><span class="hll"><span class="k">async</span> <span class="k">def</span> <span class="nf">get_director_ids</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span></span><span data-line="35"><span class="hll">    <span class="k">async</span> <span class="k">with</span> <span class="n">AsyncSession</span><span class="p">(</span><span class="n">async_engine</span><span class="p">)</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+</span></span><span data-line="36"><span class="hll">        <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">scalars</span><span class="p">(</span><span class="n">select</span><span class="p">(</span><span class="n">User</span><span class="o">.</span><span class="n">id</span><span class="p">)))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</span></span><span data-line="37"><span class="hll">        <span class="k">return</span> <span class="n">UserFactory</span><span class="o">.</span><span class="n">__random__</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></span><span data-line="38">
+</span><span data-line="39">
+</span><span data-line="40"><span class="k">async</span> <span class="k">def</span> <span class="nf">test_factory_with_pre_fetched_async_data</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="41">    <span class="k">async</span> <span class="k">with</span> <span class="n">async_engine</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+</span><span data-line="42">        <span class="k">await</span> <span class="n">conn</span><span class="o">.</span><span class="n">run_sync</span><span class="p">(</span><span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">drop_all</span><span class="p">)</span>
+</span><span data-line="43">        <span class="k">await</span> <span class="n">conn</span><span class="o">.</span><span class="n">run_sync</span><span class="p">(</span><span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">)</span>
+</span><span data-line="44">
+</span><span data-line="45">    <span class="k">async</span> <span class="k">with</span> <span class="n">AsyncSession</span><span class="p">(</span><span class="n">async_engine</span><span class="p">)</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+</span><span data-line="46">        <span class="n">UserFactory</span><span class="o">.</span><span class="n">__async_session__</span> <span class="o">=</span> <span class="n">session</span>
+</span><span data-line="47">        <span class="k">await</span> <span class="n">UserFactory</span><span class="o">.</span><span class="n">create_batch_async</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span data-line="48">
+</span><span data-line="49">    <span class="k">async</span> <span class="k">with</span> <span class="n">AsyncSession</span><span class="p">(</span><span class="n">async_engine</span><span class="p">)</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+</span><span data-line="50">        <span class="n">DepartmentFactory</span><span class="o">.</span><span class="n">__async_session__</span> <span class="o">=</span> <span class="n">session</span>
+</span><span data-line="51"><span class="hll">        <span class="n">department</span> <span class="o">=</span> <span class="k">await</span> <span class="n">DepartmentFactory</span><span class="o">.</span><span class="n">create_async</span><span class="p">(</span><span class="n">director_id</span><span class="o">=</span><span class="k">await</span> <span class="n">get_director_ids</span><span class="p">())</span>
+</span></span><span data-line="52">        <span class="n">user</span> <span class="o">=</span> <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span><span class="n">select</span><span class="p">(</span><span class="n">User</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">User</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">department</span><span class="o">.</span><span class="n">director_id</span><span class="p">))</span>
+</span><span data-line="53">        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">User</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+</section>
 </section>
 
         </article><button class="back-to-top" type="button">
@@ -848,7 +904,7 @@ name in the values dictionary.</p>
     </div>
   </div>
 </footer>
-      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=89ec3e0c"></script>
+      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=efc0be01"></script>
       <script src="../_static/doctools.js?v=888ff710"></script>
       <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

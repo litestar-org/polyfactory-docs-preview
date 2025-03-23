@@ -230,19 +230,9 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#polyfactory.fields.Fixture.to_value"><code class="docutils literal notranslate">to_value()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#polyfactory.fields.NotPassed"><code class="docutils literal notranslate"><span class="pre">NotPassed</span></code></a></li>
-<li><a class="reference internal" href="#polyfactory.fields.BaseParam"><code class="docutils literal notranslate"><span class="pre">BaseParam</span></code></a><ul>
-<li><a class="reference internal" href="#polyfactory.fields.BaseParam.to_value"><code class="docutils literal notranslate">to_value()</span></code></a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#polyfactory.fields.Param"><code class="docutils literal notranslate"><span class="pre">Param</span></code></a><ul>
 <li><a class="reference internal" href="#polyfactory.fields.Param.__init__"><code class="docutils literal notranslate">__init__()</span></code></a></li>
 <li><a class="reference internal" href="#polyfactory.fields.Param.to_value"><code class="docutils literal notranslate">to_value()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#polyfactory.fields.CallableParam"><code class="docutils literal notranslate"><span class="pre">CallableParam</span></code></a><ul>
-<li><a class="reference internal" href="#polyfactory.fields.CallableParam.__init__"><code class="docutils literal notranslate">__init__()</span></code></a></li>
-<li><a class="reference internal" href="#polyfactory.fields.CallableParam.to_value"><code class="docutils literal notranslate">to_value()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -431,54 +421,16 @@ data-aria-dark="Switch to auto color mode">
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="polyfactory.fields.NotPassed">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyfactory.fields.</span></span><span class="sig-name descname"><span class="pre">NotPassed</span></span><a class="reference internal" href="../_modules/polyfactory/fields.html#NotPassed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyfactory.fields.NotPassed" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Indicates a parameter was not passed to a factory field and must be
-passed at build time.</p>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="polyfactory.fields.BaseParam">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyfactory.fields.</span></span><span class="sig-name descname"><span class="pre">BaseParam</span></span><a class="reference internal" href="../_modules/polyfactory/fields.html#BaseParam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyfactory.fields.BaseParam" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generic" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">U</span></code>]</p>
-<p>Base class for parameters.</p>
-<p>This class is used to pass a parameters that can be referenced by other
-fields but will not be passed to the final object.</p>
-<p>It is generic over the type of the parameter that will be used during build
-and also the method used to generate that value (e.g. as a constant or a
-callable).</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="polyfactory.fields.BaseParam.to_value">
-<span class="sig-name descname"><span class="pre">to_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_build:</span> <span class="pre">~polyfactory.fields.U</span> <span class="pre">|</span> <span class="pre">~polyfactory.fields.NotPassed</span> <span class="pre">=</span> <span class="pre">&lt;polyfactory.fields.NotPassed</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../_modules/polyfactory/fields.html#BaseParam.to_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyfactory.fields.BaseParam.to_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Determines the value of the parameter.</p>
-<p>This method must be implemented in subclasses.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="target" id="polyfactory.fields.BaseParam.to_value.params.from_build"></span><strong>from_build</strong><a class="paramlink headerlink reference internal" href="#polyfactory.fields.BaseParam.to_value.params.from_build">¶</a> – The value passed at build time.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The value</p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p>NotImplementedError</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="polyfactory.fields.Param">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyfactory.fields.</span></span><span class="sig-name descname"><span class="pre">Param</span></span><a class="reference internal" href="../_modules/polyfactory/fields.html#Param"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyfactory.fields.Param" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generic" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>], <a class="reference internal" href="#polyfactory.fields.BaseParam" title="polyfactory.fields.BaseParam"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseParam</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generic" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
 <p>A constant parameter that can be used by other fields but will not be
 passed to the final object.</p>
 <p>If a value for the parameter is not passed in the field’s definition, it must
 be passed at build time. Otherwise, a MissingParamException will be raised.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="polyfactory.fields.Param.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param:</span> <span class="pre">~polyfactory.fields.T</span> <span class="pre">|</span> <span class="pre">~polyfactory.fields.NotPassed</span> <span class="pre">=</span> <span class="pre">&lt;polyfactory.fields.NotPassed</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/polyfactory/fields.html#Param.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyfactory.fields.Param.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">param:</span> <span class="pre">~polyfactory.fields.T</span> <span class="pre">|</span> <span class="pre">~typing.Callable[[...],</span> <span class="pre">~polyfactory.fields.T]</span> <span class="pre">|</span> <span class="pre">type[polyfactory.field_meta.Null]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'polyfactory.field_meta.Null'&gt;,</span> <span class="pre">is_callable:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">**kwargs:</span> <span class="pre">~typing.Any</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/polyfactory/fields.html#Param.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyfactory.fields.Param.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Designate a parameter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -489,7 +441,7 @@ be passed at build time. Otherwise, a MissingParamException will be raised.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="polyfactory.fields.Param.to_value">
-<span class="sig-name descname"><span class="pre">to_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_build:</span> <span class="pre">~polyfactory.fields.T</span> <span class="pre">|</span> <span class="pre">~polyfactory.fields.NotPassed</span> <span class="pre">=</span> <span class="pre">&lt;polyfactory.fields.NotPassed</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../_modules/polyfactory/fields.html#Param.to_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyfactory.fields.Param.to_value" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">to_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">from_build:</span> <span class="pre">~polyfactory.fields.T</span> <span class="pre">|</span> <span class="pre">~typing.Callable[[...],</span> <span class="pre">~polyfactory.fields.T]</span> <span class="pre">|</span> <span class="pre">type[polyfactory.field_meta.Null]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'polyfactory.field_meta.Null'&gt;,</span> <span class="pre">**kwargs:</span> <span class="pre">~typing.Any</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../_modules/polyfactory/fields.html#Param.to_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyfactory.fields.Param.to_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines the value to use at build time</p>
 <p>If a value was passed to the constructor, it will be used. Otherwise, the value
 passed at build time will be used. If no value was passed at build time, a
@@ -497,53 +449,6 @@ MissingParamException will be raised.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="target" id="polyfactory.fields.Param.to_value.params.args"></span><strong>args</strong><a class="paramlink headerlink reference internal" href="#polyfactory.fields.Param.to_value.params.args">¶</a> – from_build: The value passed at build time (if any).</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The value</p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p>MissingParamException</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="polyfactory.fields.CallableParam">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyfactory.fields.</span></span><span class="sig-name descname"><span class="pre">CallableParam</span></span><a class="reference internal" href="../_modules/polyfactory/fields.html#CallableParam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyfactory.fields.CallableParam" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generic" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>], <a class="reference internal" href="#polyfactory.fields.BaseParam" title="polyfactory.fields.BaseParam"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseParam</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>[[…], <code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]]</p>
-<p>A callable parameter that can be used by other fields but will not be
-passed to the final object.</p>
-<p>The callable may be passed optional keyword arguments via the constructor
-of this class. The callable will be invoked with the passed keyword
-arguments and any positional arguments passed at build time.</p>
-<p>If a callable for the parameter is not passed in the field’s definition, it must
-be passed at build time. Otherwise, a MissingParamException will be raised.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="polyfactory.fields.CallableParam.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">param:</span> <span class="pre">~typing.Callable[[...],</span> <span class="pre">~polyfactory.fields.T]</span> <span class="pre">|</span> <span class="pre">~polyfactory.fields.NotPassed</span> <span class="pre">=</span> <span class="pre">&lt;polyfactory.fields.NotPassed</span> <span class="pre">object&gt;,</span> <span class="pre">**kwargs:</span> <span class="pre">~typing.Any</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/polyfactory/fields.html#CallableParam.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyfactory.fields.CallableParam.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Designate field as a callable parameter.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="polyfactory.fields.CallableParam.params.param"></span><strong>param</strong><a class="paramlink headerlink reference internal" href="#polyfactory.fields.CallableParam.params.param">¶</a> – A callable that will be evaluated at build time.</p></li>
-<li><p><span class="target" id="polyfactory.fields.CallableParam.params.kwargs"></span><strong>kwargs</strong><a class="paramlink headerlink reference internal" href="#polyfactory.fields.CallableParam.params.kwargs">¶</a> – Any kwargs to pass to the callable.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="polyfactory.fields.CallableParam.to_value">
-<span class="sig-name descname"><span class="pre">to_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">from_build:</span> <span class="pre">~typing.Callable[[...],</span> <span class="pre">~polyfactory.fields.T]</span> <span class="pre">|</span> <span class="pre">~polyfactory.fields.NotPassed</span> <span class="pre">=</span> <span class="pre">&lt;polyfactory.fields.NotPassed</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../_modules/polyfactory/fields.html#CallableParam.to_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyfactory.fields.CallableParam.to_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Determine the value to use at build time.</p>
-<p>If a value was passed to the constructor, it will be used. Otherwise, the value
-passed at build time will be used. If no value was passed at build time, a
-MissingParamException will be raised.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="target" id="polyfactory.fields.CallableParam.to_value.params.args"></span><strong>args</strong><a class="paramlink headerlink reference internal" href="#polyfactory.fields.CallableParam.to_value.params.args">¶</a> – from_build: The callable passed at build time (if any).</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The value</p>
@@ -610,7 +515,7 @@ MissingParamException will be raised.</p>
     </div>
   </div>
 </footer>
-      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=89ec3e0c"></script>
+      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=efc0be01"></script>
       <script src="../_static/doctools.js?v=888ff710"></script>
       <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

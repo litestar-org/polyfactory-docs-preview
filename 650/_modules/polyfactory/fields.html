@@ -269,234 +269,199 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="5"><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">ParamSpec</span>
 </span><span data-line="6">
 </span><span data-line="7"><span class="kn">from</span> <span class="nn">polyfactory.exceptions</span> <span class="kn">import</span> <span class="n">MissingParamException</span><span class="p">,</span> <span class="n">ParameterException</span>
-</span><span data-line="8">
-</span><span data-line="9"><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
-</span><span data-line="10"><span class="n">U</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;U&quot;</span><span class="p">)</span>
-</span><span data-line="11"><span class="n">P</span> <span class="o">=</span> <span class="n">ParamSpec</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">)</span>
-</span><span data-line="12">
-</span><span data-line="13">
-<div class="viewcode-block" id="WrappedCallable"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.WrappedCallable">[docs]</a></span><span data-line="14"><span class="k">class</span> <span class="nc">WrappedCallable</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
-</span><span data-line="15"><span class="w">    </span><span class="sd">&quot;&quot;&quot;A ref storing a callable. This class is a utility meant to prevent binding of methods.&quot;&quot;&quot;</span>
+</span><span data-line="8"><span class="kn">from</span> <span class="nn">polyfactory.field_meta</span> <span class="kn">import</span> <span class="n">Null</span>
+</span><span data-line="9"><span class="kn">from</span> <span class="nn">polyfactory.utils</span> <span class="kn">import</span> <span class="n">deprecation</span>
+</span><span data-line="10"><span class="kn">from</span> <span class="nn">polyfactory.utils.predicates</span> <span class="kn">import</span> <span class="n">is_safe_subclass</span>
+</span><span data-line="11">
+</span><span data-line="12"><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+</span><span data-line="13"><span class="n">U</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;U&quot;</span><span class="p">)</span>
+</span><span data-line="14"><span class="n">P</span> <span class="o">=</span> <span class="n">ParamSpec</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">)</span>
+</span><span data-line="15">
 </span><span data-line="16">
-</span><span data-line="17">    <span class="n">value</span><span class="p">:</span> <span class="n">Callable</span></div>
-</span><span data-line="18">
+<div class="viewcode-block" id="WrappedCallable"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.WrappedCallable">[docs]</a></span><span data-line="17"><span class="k">class</span> <span class="nc">WrappedCallable</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+</span><span data-line="18"><span class="w">    </span><span class="sd">&quot;&quot;&quot;A ref storing a callable. This class is a utility meant to prevent binding of methods.&quot;&quot;&quot;</span>
 </span><span data-line="19">
-<div class="viewcode-block" id="Require"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Require">[docs]</a></span><span data-line="20"><span class="k">class</span> <span class="nc">Require</span><span class="p">:</span>
-</span><span data-line="21"><span class="w">    </span><span class="sd">&quot;&quot;&quot;A factory field that marks an attribute as a required build-time kwarg.&quot;&quot;&quot;</span></div>
+</span><span data-line="20">    <span class="n">value</span><span class="p">:</span> <span class="n">Callable</span></div>
+</span><span data-line="21">
 </span><span data-line="22">
-</span><span data-line="23">
-<div class="viewcode-block" id="Ignore"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Ignore">[docs]</a></span><span data-line="24"><span class="k">class</span> <span class="nc">Ignore</span><span class="p">:</span>
-</span><span data-line="25"><span class="w">    </span><span class="sd">&quot;&quot;&quot;A factory field that marks an attribute as ignored.&quot;&quot;&quot;</span></div>
+<div class="viewcode-block" id="Require"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Require">[docs]</a></span><span data-line="23"><span class="k">class</span> <span class="nc">Require</span><span class="p">:</span>
+</span><span data-line="24"><span class="w">    </span><span class="sd">&quot;&quot;&quot;A factory field that marks an attribute as a required build-time kwarg.&quot;&quot;&quot;</span></div>
+</span><span data-line="25">
 </span><span data-line="26">
-</span><span data-line="27">
-<div class="viewcode-block" id="Use"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Use">[docs]</a></span><span data-line="28"><span class="k">class</span> <span class="nc">Use</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">]):</span>
-</span><span data-line="29"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Factory field used to wrap a callable.</span>
+<div class="viewcode-block" id="Ignore"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Ignore">[docs]</a></span><span data-line="27"><span class="k">class</span> <span class="nc">Ignore</span><span class="p">:</span>
+</span><span data-line="28"><span class="w">    </span><span class="sd">&quot;&quot;&quot;A factory field that marks an attribute as ignored.&quot;&quot;&quot;</span></div>
+</span><span data-line="29">
 </span><span data-line="30">
-</span><span data-line="31"><span class="sd">    The callable will be invoked whenever building the given factory attribute.</span>
-</span><span data-line="32">
+<div class="viewcode-block" id="Use"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Use">[docs]</a></span><span data-line="31"><span class="k">class</span> <span class="nc">Use</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">]):</span>
+</span><span data-line="32"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Factory field used to wrap a callable.</span>
 </span><span data-line="33">
-</span><span data-line="34"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span data-line="34"><span class="sd">    The callable will be invoked whenever building the given factory attribute.</span>
 </span><span data-line="35">
-</span><span data-line="36">    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;args&quot;</span><span class="p">,</span> <span class="s2">&quot;fn&quot;</span><span class="p">,</span> <span class="s2">&quot;kwargs&quot;</span><span class="p">)</span>
-</span><span data-line="37">
-<div class="viewcode-block" id="Use.__init__"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Use.__init__">[docs]</a></span><span data-line="38">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="39"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Wrap a callable.</span>
+</span><span data-line="36">
+</span><span data-line="37"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span data-line="38">
+</span><span data-line="39">    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;args&quot;</span><span class="p">,</span> <span class="s2">&quot;fn&quot;</span><span class="p">,</span> <span class="s2">&quot;kwargs&quot;</span><span class="p">)</span>
 </span><span data-line="40">
-</span><span data-line="41"><span class="sd">        :param fn: A callable to wrap.</span>
-</span><span data-line="42"><span class="sd">        :param args: Any args to pass to the callable.</span>
-</span><span data-line="43"><span class="sd">        :param kwargs: Any kwargs to pass to the callable.</span>
-</span><span data-line="44"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="45">        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="p">:</span> <span class="n">WrappedCallable</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">fn</span><span class="p">}</span>
-</span><span data-line="46">        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
-</span><span data-line="47">        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span></div>
-</span><span data-line="48">
-<div class="viewcode-block" id="Use.to_value"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Use.to_value">[docs]</a></span><span data-line="49">    <span class="k">def</span> <span class="nf">to_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-</span><span data-line="50"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Invoke the callable.</span>
+<div class="viewcode-block" id="Use.__init__"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Use.__init__">[docs]</a></span><span data-line="41">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="42"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Wrap a callable.</span>
+</span><span data-line="43">
+</span><span data-line="44"><span class="sd">        :param fn: A callable to wrap.</span>
+</span><span data-line="45"><span class="sd">        :param args: Any args to pass to the callable.</span>
+</span><span data-line="46"><span class="sd">        :param kwargs: Any kwargs to pass to the callable.</span>
+</span><span data-line="47"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="48">        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="p">:</span> <span class="n">WrappedCallable</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">fn</span><span class="p">}</span>
+</span><span data-line="49">        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+</span><span data-line="50">        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span></div>
 </span><span data-line="51">
-</span><span data-line="52"><span class="sd">        :returns: The output of the callable.</span>
-</span><span data-line="53">
+<div class="viewcode-block" id="Use.to_value"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Use.to_value">[docs]</a></span><span data-line="52">    <span class="k">def</span> <span class="nf">to_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+</span><span data-line="53"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Invoke the callable.</span>
 </span><span data-line="54">
-</span><span data-line="55"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="56">        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">](</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">))</span></div></div>
+</span><span data-line="55"><span class="sd">        :returns: The output of the callable.</span>
+</span><span data-line="56">
 </span><span data-line="57">
-</span><span data-line="58">
-<div class="viewcode-block" id="PostGenerated"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.PostGenerated">[docs]</a></span><span data-line="59"><span class="k">class</span> <span class="nc">PostGenerated</span><span class="p">:</span>
-</span><span data-line="60"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Factory field that allows generating values after other fields are generated by the factory.&quot;&quot;&quot;</span>
+</span><span data-line="58"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="59">        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">](</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">))</span></div></div>
+</span><span data-line="60">
 </span><span data-line="61">
-</span><span data-line="62">    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;args&quot;</span><span class="p">,</span> <span class="s2">&quot;fn&quot;</span><span class="p">,</span> <span class="s2">&quot;kwargs&quot;</span><span class="p">)</span>
-</span><span data-line="63">
-<div class="viewcode-block" id="PostGenerated.__init__"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.PostGenerated.__init__">[docs]</a></span><span data-line="64">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="65"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Designate field as post-generated.</span>
+<div class="viewcode-block" id="PostGenerated"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.PostGenerated">[docs]</a></span><span data-line="62"><span class="k">class</span> <span class="nc">PostGenerated</span><span class="p">:</span>
+</span><span data-line="63"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Factory field that allows generating values after other fields are generated by the factory.&quot;&quot;&quot;</span>
+</span><span data-line="64">
+</span><span data-line="65">    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;args&quot;</span><span class="p">,</span> <span class="s2">&quot;fn&quot;</span><span class="p">,</span> <span class="s2">&quot;kwargs&quot;</span><span class="p">)</span>
 </span><span data-line="66">
-</span><span data-line="67"><span class="sd">        :param fn: A callable.</span>
-</span><span data-line="68"><span class="sd">        :param args: Args for the callable.</span>
-</span><span data-line="69"><span class="sd">        :param kwargs: Kwargs for the callable.</span>
-</span><span data-line="70"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="71">        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="p">:</span> <span class="n">WrappedCallable</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">fn</span><span class="p">}</span>
-</span><span data-line="72">        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
-</span><span data-line="73">        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span></div>
-</span><span data-line="74">
-<div class="viewcode-block" id="PostGenerated.to_value"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.PostGenerated.to_value">[docs]</a></span><span data-line="75">    <span class="k">def</span> <span class="nf">to_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-</span><span data-line="76"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Invoke the post-generation callback passing to it the build results.</span>
+<div class="viewcode-block" id="PostGenerated.__init__"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.PostGenerated.__init__">[docs]</a></span><span data-line="67">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="68"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Designate field as post-generated.</span>
+</span><span data-line="69">
+</span><span data-line="70"><span class="sd">        :param fn: A callable.</span>
+</span><span data-line="71"><span class="sd">        :param args: Args for the callable.</span>
+</span><span data-line="72"><span class="sd">        :param kwargs: Kwargs for the callable.</span>
+</span><span data-line="73"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="74">        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="p">:</span> <span class="n">WrappedCallable</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">fn</span><span class="p">}</span>
+</span><span data-line="75">        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+</span><span data-line="76">        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span></div>
 </span><span data-line="77">
-</span><span data-line="78"><span class="sd">        :param name: Field name.</span>
-</span><span data-line="79"><span class="sd">        :param values: Generated values.</span>
+<div class="viewcode-block" id="PostGenerated.to_value"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.PostGenerated.to_value">[docs]</a></span><span data-line="78">    <span class="k">def</span> <span class="nf">to_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+</span><span data-line="79"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Invoke the post-generation callback passing to it the build results.</span>
 </span><span data-line="80">
-</span><span data-line="81"><span class="sd">        :returns: An arbitrary value.</span>
-</span><span data-line="82"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="83">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">](</span><span class="n">name</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span></div></div>
-</span><span data-line="84">
-</span><span data-line="85">
-<div class="viewcode-block" id="Fixture"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Fixture">[docs]</a></span><span data-line="86"><span class="k">class</span> <span class="nc">Fixture</span><span class="p">:</span>
-</span><span data-line="87"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Factory field to create a pytest fixture from a factory.&quot;&quot;&quot;</span>
+</span><span data-line="81"><span class="sd">        :param name: Field name.</span>
+</span><span data-line="82"><span class="sd">        :param values: Generated values.</span>
+</span><span data-line="83">
+</span><span data-line="84"><span class="sd">        :returns: An arbitrary value.</span>
+</span><span data-line="85"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="86">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">](</span><span class="n">name</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+</span><span data-line="87">
 </span><span data-line="88">
-</span><span data-line="89">    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;kwargs&quot;</span><span class="p">,</span> <span class="s2">&quot;ref&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">)</span>
-</span><span data-line="90">
-<div class="viewcode-block" id="Fixture.__init__"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Fixture.__init__">[docs]</a></span><span data-line="91">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fixture</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="92"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a fixture from a factory.</span>
+<div class="viewcode-block" id="Fixture"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Fixture">[docs]</a></span><span data-line="89"><span class="k">class</span> <span class="nc">Fixture</span><span class="p">:</span>
+</span><span data-line="90"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Factory field to create a pytest fixture from a factory.&quot;&quot;&quot;</span>
+</span><span data-line="91">
+</span><span data-line="92">    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;kwargs&quot;</span><span class="p">,</span> <span class="s2">&quot;ref&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">)</span>
 </span><span data-line="93">
-</span><span data-line="94"><span class="sd">        :param fixture: A factory that was registered as a fixture.</span>
-</span><span data-line="95"><span class="sd">        :param size: Optional batch size.</span>
-</span><span data-line="96"><span class="sd">        :param kwargs: Any build kwargs.</span>
-</span><span data-line="97"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="98">        <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">:</span> <span class="n">WrappedCallable</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">fixture</span><span class="p">}</span>
-</span><span data-line="99">        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
-</span><span data-line="100">        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span></div>
-</span><span data-line="101">
-<div class="viewcode-block" id="Fixture.to_value"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Fixture.to_value">[docs]</a></span><span data-line="102">    <span class="k">def</span> <span class="nf">to_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-</span><span data-line="103"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Call the factory&#39;s build or batch method.</span>
-</span><span data-line="104">
-</span><span data-line="105"><span class="sd">        :raises: ParameterException</span>
-</span><span data-line="106">
-</span><span data-line="107"><span class="sd">        :returns: The build result.</span>
-</span><span data-line="108"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="109">        <span class="kn">from</span> <span class="nn">polyfactory.pytest_plugin</span> <span class="kn">import</span> <span class="n">FactoryFixture</span>
+<div class="viewcode-block" id="Fixture.__init__"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Fixture.__init__">[docs]</a></span><span data-line="94">    <span class="nd">@deprecation</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="s2">&quot;2.20.0&quot;</span><span class="p">,</span> <span class="n">alternative</span><span class="o">=</span><span class="s2">&quot;Use factory directly&quot;</span><span class="p">)</span>
+</span><span data-line="95">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fixture</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="96"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a fixture from a factory.</span>
+</span><span data-line="97">
+</span><span data-line="98"><span class="sd">        :param fixture: A factory that was registered as a fixture.</span>
+</span><span data-line="99"><span class="sd">        :param size: Optional batch size.</span>
+</span><span data-line="100"><span class="sd">        :param kwargs: Any build kwargs.</span>
+</span><span data-line="101"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="102">        <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">:</span> <span class="n">WrappedCallable</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">fixture</span><span class="p">}</span>
+</span><span data-line="103">        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
+</span><span data-line="104">        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span></div>
+</span><span data-line="105">
+<div class="viewcode-block" id="Fixture.to_value"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Fixture.to_value">[docs]</a></span><span data-line="106">    <span class="k">def</span> <span class="nf">to_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+</span><span data-line="107"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Call the factory&#39;s build or batch method.</span>
+</span><span data-line="108">
+</span><span data-line="109"><span class="sd">        :raises: ParameterException</span>
 </span><span data-line="110">
-</span><span data-line="111">        <span class="k">if</span> <span class="n">factory</span> <span class="o">:=</span> <span class="n">FactoryFixture</span><span class="o">.</span><span class="n">factory_class_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]):</span>
-</span><span data-line="112">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="113">                <span class="k">return</span> <span class="n">factory</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span data-line="114">            <span class="k">return</span> <span class="n">factory</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span data-line="115">
-</span><span data-line="116">        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;fixture has not been registered using the register_factory decorator&quot;</span>
-</span><span data-line="117">        <span class="k">raise</span> <span class="n">ParameterException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div></div>
-</span><span data-line="118">
+</span><span data-line="111"><span class="sd">        :returns: The build result.</span>
+</span><span data-line="112"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="113">        <span class="kn">from</span> <span class="nn">polyfactory.factories.base</span> <span class="kn">import</span> <span class="n">BaseFactory</span>
+</span><span data-line="114">
+</span><span data-line="115">        <span class="n">factory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
+</span><span data-line="116">        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_safe_subclass</span><span class="p">(</span><span class="n">factory</span><span class="p">,</span> <span class="n">BaseFactory</span><span class="p">):</span>
+</span><span data-line="117">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;fixture has not been registered using the register_factory decorator&quot;</span>
+</span><span data-line="118">            <span class="k">raise</span> <span class="n">ParameterException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 </span><span data-line="119">
-<div class="viewcode-block" id="NotPassed"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.NotPassed">[docs]</a></span><span data-line="120"><span class="k">class</span> <span class="nc">NotPassed</span><span class="p">:</span>
-</span><span data-line="121"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Indicates a parameter was not passed to a factory field and must be</span>
-</span><span data-line="122"><span class="sd">    passed at build time.</span>
-</span><span data-line="123"><span class="sd">    &quot;&quot;&quot;</span></div>
+</span><span data-line="120">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="121">            <span class="k">return</span> <span class="n">factory</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span data-line="122">        <span class="k">return</span> <span class="n">factory</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+</span><span data-line="123">
 </span><span data-line="124">
-</span><span data-line="125">
-</span><span data-line="126"><span class="n">IsNotPassed</span> <span class="o">=</span> <span class="n">NotPassed</span><span class="p">()</span>
-</span><span data-line="127">
+<div class="viewcode-block" id="Param"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Param">[docs]</a></span><span data-line="125"><span class="k">class</span> <span class="nc">Param</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+</span><span data-line="126"><span class="w">    </span><span class="sd">&quot;&quot;&quot;A constant parameter that can be used by other fields but will not be</span>
+</span><span data-line="127"><span class="sd">    passed to the final object.</span>
 </span><span data-line="128">
-<div class="viewcode-block" id="BaseParam"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.BaseParam">[docs]</a></span><span data-line="129"><span class="k">class</span> <span class="nc">BaseParam</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">]):</span>
-</span><span data-line="130"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for parameters.</span>
-</span><span data-line="131">
-</span><span data-line="132"><span class="sd">    This class is used to pass a parameters that can be referenced by other</span>
-</span><span data-line="133"><span class="sd">    fields but will not be passed to the final object.</span>
+</span><span data-line="129"><span class="sd">    If a value for the parameter is not passed in the field&#39;s definition, it must</span>
+</span><span data-line="130"><span class="sd">    be passed at build time. Otherwise, a MissingParamException will be raised.</span>
+</span><span data-line="131"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span data-line="132">
+</span><span data-line="133">    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;is_callable&quot;</span><span class="p">,</span> <span class="s2">&quot;kwargs&quot;</span><span class="p">,</span> <span class="s2">&quot;param&quot;</span><span class="p">)</span>
 </span><span data-line="134">
-</span><span data-line="135"><span class="sd">    It is generic over the type of the parameter that will be used during build</span>
-</span><span data-line="136"><span class="sd">    and also the method used to generate that value (e.g. as a constant or a</span>
-</span><span data-line="137"><span class="sd">    callable).</span>
-</span><span data-line="138"><span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Param.__init__"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Param.__init__">[docs]</a></span><span data-line="135">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+</span><span data-line="136">        <span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">:</span> <span class="n">T</span> <span class="o">|</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span> <span class="o">|</span> <span class="nb">type</span><span class="p">[</span><span class="n">Null</span><span class="p">]</span> <span class="o">=</span> <span class="n">Null</span><span class="p">,</span> <span class="n">is_callable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+</span><span data-line="137">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="138"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Designate a parameter.</span>
 </span><span data-line="139">
-<div class="viewcode-block" id="BaseParam.to_value"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.BaseParam.to_value">[docs]</a></span><span data-line="140">    <span class="k">def</span> <span class="nf">to_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_build</span><span class="p">:</span> <span class="n">U</span> <span class="o">|</span> <span class="n">NotPassed</span> <span class="o">=</span> <span class="n">IsNotPassed</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-</span><span data-line="141"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Determines the value of the parameter.</span>
-</span><span data-line="142">
-</span><span data-line="143"><span class="sd">        This method must be implemented in subclasses.</span>
-</span><span data-line="144">
-</span><span data-line="145"><span class="sd">        :param from_build: The value passed at build time.</span>
-</span><span data-line="146"><span class="sd">        :returns: The value</span>
-</span><span data-line="147"><span class="sd">        :raises: NotImplementedError</span>
-</span><span data-line="148"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="149">        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;to_value must be implemented in subclasses&quot;</span>
-</span><span data-line="150">        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>  <span class="c1"># pragma: no cover</span></div></div>
-</span><span data-line="151">
+</span><span data-line="140"><span class="sd">        :param param: A constant or an unpassed value that can be referenced later</span>
+</span><span data-line="141"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="142">        <span class="k">if</span> <span class="n">param</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Null</span> <span class="ow">and</span> <span class="n">is_callable</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="n">param</span><span class="p">):</span>
+</span><span data-line="143">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;If an object is passed to param, a callable must be passed when is_callable is True&quot;</span>
+</span><span data-line="144">            <span class="k">raise</span> <span class="n">ParameterException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="145">        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_callable</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="p">:</span>
+</span><span data-line="146">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;kwargs can only be used with callable parameters&quot;</span>
+</span><span data-line="147">            <span class="k">raise</span> <span class="n">ParameterException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="148">
+</span><span data-line="149">        <span class="bp">self</span><span class="o">.</span><span class="n">param</span> <span class="o">=</span> <span class="n">param</span>
+</span><span data-line="150">        <span class="bp">self</span><span class="o">.</span><span class="n">is_callable</span> <span class="o">=</span> <span class="n">is_callable</span>
+</span><span data-line="151">        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span></div>
 </span><span data-line="152">
-<div class="viewcode-block" id="Param"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Param">[docs]</a></span><span data-line="153"><span class="k">class</span> <span class="nc">Param</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">BaseParam</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">]):</span>
-</span><span data-line="154"><span class="w">    </span><span class="sd">&quot;&quot;&quot;A constant parameter that can be used by other fields but will not be</span>
-</span><span data-line="155"><span class="sd">    passed to the final object.</span>
-</span><span data-line="156">
-</span><span data-line="157"><span class="sd">    If a value for the parameter is not passed in the field&#39;s definition, it must</span>
-</span><span data-line="158"><span class="sd">    be passed at build time. Otherwise, a MissingParamException will be raised.</span>
-</span><span data-line="159"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span data-line="160">
-</span><span data-line="161">    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;param&quot;</span><span class="p">,)</span>
-</span><span data-line="162">
-<div class="viewcode-block" id="Param.__init__"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Param.__init__">[docs]</a></span><span data-line="163">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">:</span> <span class="n">T</span> <span class="o">|</span> <span class="n">NotPassed</span> <span class="o">=</span> <span class="n">IsNotPassed</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="164"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Designate a parameter.</span>
-</span><span data-line="165">
-</span><span data-line="166"><span class="sd">        :param param: A constant or an unpassed value that can be referenced later</span>
-</span><span data-line="167"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="168">        <span class="bp">self</span><span class="o">.</span><span class="n">param</span> <span class="o">=</span> <span class="n">param</span></div>
-</span><span data-line="169">
-<div class="viewcode-block" id="Param.to_value"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Param.to_value">[docs]</a></span><span data-line="170">    <span class="k">def</span> <span class="nf">to_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_build</span><span class="p">:</span> <span class="n">T</span> <span class="o">|</span> <span class="n">NotPassed</span> <span class="o">=</span> <span class="n">IsNotPassed</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-</span><span data-line="171"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Determines the value to use at build time</span>
-</span><span data-line="172">
-</span><span data-line="173"><span class="sd">        If a value was passed to the constructor, it will be used. Otherwise, the value</span>
-</span><span data-line="174"><span class="sd">        passed at build time will be used. If no value was passed at build time, a</span>
-</span><span data-line="175"><span class="sd">        MissingParamException will be raised.</span>
-</span><span data-line="176">
-</span><span data-line="177"><span class="sd">        :param args: from_build: The value passed at build time (if any).</span>
-</span><span data-line="178"><span class="sd">        :returns: The value</span>
-</span><span data-line="179"><span class="sd">        :raises: MissingParamException</span>
-</span><span data-line="180"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="181">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span> <span class="ow">is</span> <span class="n">IsNotPassed</span><span class="p">:</span>
-</span><span data-line="182">            <span class="k">if</span> <span class="n">from_build</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">IsNotPassed</span><span class="p">:</span>
-</span><span data-line="183">                <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">from_build</span><span class="p">)</span>
-</span><span data-line="184">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Param value was not passed at build time&quot;</span>
-</span><span data-line="185">            <span class="k">raise</span> <span class="n">MissingParamException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-</span><span data-line="186">        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">)</span></div></div>
-</span><span data-line="187">
-</span><span data-line="188">
-<div class="viewcode-block" id="CallableParam"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.CallableParam">[docs]</a></span><span data-line="189"><span class="k">class</span> <span class="nc">CallableParam</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">BaseParam</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">T</span><span class="p">]]):</span>
-</span><span data-line="190"><span class="w">    </span><span class="sd">&quot;&quot;&quot;A callable parameter that can be used by other fields but will not be</span>
-</span><span data-line="191"><span class="sd">    passed to the final object.</span>
-</span><span data-line="192">
-</span><span data-line="193"><span class="sd">    The callable may be passed optional keyword arguments via the constructor</span>
-</span><span data-line="194"><span class="sd">    of this class. The callable will be invoked with the passed keyword</span>
-</span><span data-line="195"><span class="sd">    arguments and any positional arguments passed at build time.</span>
-</span><span data-line="196">
-</span><span data-line="197"><span class="sd">    If a callable for the parameter is not passed in the field&#39;s definition, it must</span>
-</span><span data-line="198"><span class="sd">    be passed at build time. Otherwise, a MissingParamException will be raised.</span>
-</span><span data-line="199"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span data-line="200">
-</span><span data-line="201">    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span>
-</span><span data-line="202">        <span class="s2">&quot;kwargs&quot;</span><span class="p">,</span>
-</span><span data-line="203">        <span class="s2">&quot;param&quot;</span><span class="p">,</span>
-</span><span data-line="204">    <span class="p">)</span>
-</span><span data-line="205">
-<div class="viewcode-block" id="CallableParam.__init__"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.CallableParam.__init__">[docs]</a></span><span data-line="206">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-</span><span data-line="207">        <span class="bp">self</span><span class="p">,</span>
-</span><span data-line="208">        <span class="n">param</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotPassed</span> <span class="o">=</span> <span class="n">IsNotPassed</span><span class="p">,</span>
-</span><span data-line="209">        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-</span><span data-line="210">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="211"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Designate field as a callable parameter.</span>
-</span><span data-line="212">
-</span><span data-line="213"><span class="sd">        :param param: A callable that will be evaluated at build time.</span>
-</span><span data-line="214"><span class="sd">        :param kwargs: Any kwargs to pass to the callable.</span>
-</span><span data-line="215"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="216">        <span class="bp">self</span><span class="o">.</span><span class="n">param</span> <span class="o">=</span> <span class="n">param</span>
-</span><span data-line="217">        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span></div>
-</span><span data-line="218">
-<div class="viewcode-block" id="CallableParam.to_value"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.CallableParam.to_value">[docs]</a></span><span data-line="219">    <span class="k">def</span> <span class="nf">to_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_build</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotPassed</span> <span class="o">=</span> <span class="n">IsNotPassed</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-</span><span data-line="220"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine the value to use at build time.</span>
-</span><span data-line="221">
-</span><span data-line="222"><span class="sd">        If a value was passed to the constructor, it will be used. Otherwise, the value</span>
-</span><span data-line="223"><span class="sd">        passed at build time will be used. If no value was passed at build time, a</span>
-</span><span data-line="224"><span class="sd">        MissingParamException will be raised.</span>
-</span><span data-line="225">
-</span><span data-line="226"><span class="sd">        :param args: from_build: The callable passed at build time (if any).</span>
-</span><span data-line="227"><span class="sd">        :returns: The value</span>
-</span><span data-line="228"><span class="sd">        :raises: MissingParamException</span>
-</span><span data-line="229"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="230">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span> <span class="ow">is</span> <span class="n">IsNotPassed</span><span class="p">:</span>
-</span><span data-line="231">            <span class="k">if</span> <span class="n">from_build</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">IsNotPassed</span><span class="p">:</span>
-</span><span data-line="232">                <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">from_build</span><span class="p">)(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span data-line="233">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Param value was not passed at build time&quot;</span>
-</span><span data-line="234">            <span class="k">raise</span> <span class="n">MissingParamException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-</span><span data-line="235">        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">)(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+<div class="viewcode-block" id="Param.to_value"><a class="viewcode-back" href="../../reference/fields.html#polyfactory.fields.Param.to_value">[docs]</a></span><span data-line="153">    <span class="k">def</span> <span class="nf">to_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_build</span><span class="p">:</span> <span class="n">T</span> <span class="o">|</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span> <span class="o">|</span> <span class="nb">type</span><span class="p">[</span><span class="n">Null</span><span class="p">]</span> <span class="o">=</span> <span class="n">Null</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+</span><span data-line="154"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Determines the value to use at build time</span>
+</span><span data-line="155">
+</span><span data-line="156"><span class="sd">        If a value was passed to the constructor, it will be used. Otherwise, the value</span>
+</span><span data-line="157"><span class="sd">        passed at build time will be used. If no value was passed at build time, a</span>
+</span><span data-line="158"><span class="sd">        MissingParamException will be raised.</span>
+</span><span data-line="159">
+</span><span data-line="160"><span class="sd">        :param args: from_build: The value passed at build time (if any).</span>
+</span><span data-line="161"><span class="sd">        :returns: The value</span>
+</span><span data-line="162"><span class="sd">        :raises: MissingParamException</span>
+</span><span data-line="163"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="164">        <span class="c1"># If no param is passed at initialization, a value must be passed now</span>
+</span><span data-line="165">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span> <span class="ow">is</span> <span class="n">Null</span><span class="p">:</span>
+</span><span data-line="166">            <span class="c1"># from_build was passed, so determine the value based on whether or</span>
+</span><span data-line="167">            <span class="c1"># not we&#39;re supposed to call a callable</span>
+</span><span data-line="168">            <span class="k">if</span> <span class="n">from_build</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Null</span><span class="p">:</span>
+</span><span data-line="169">                <span class="k">return</span> <span class="p">(</span>
+</span><span data-line="170">                    <span class="n">cast</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">from_build</span><span class="p">)</span>
+</span><span data-line="171">                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_callable</span>
+</span><span data-line="172">                    <span class="k">else</span> <span class="n">cast</span><span class="p">(</span><span class="s2">&quot;Callable[..., T]&quot;</span><span class="p">,</span> <span class="n">from_build</span><span class="p">)(</span><span class="o">**</span><span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">})</span>
+</span><span data-line="173">                <span class="p">)</span>
+</span><span data-line="174">
+</span><span data-line="175">            <span class="c1"># Otherwise, raise an exception</span>
+</span><span data-line="176">            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="177">                <span class="s2">&quot;Expected a parameter value to be passed at build time&quot;</span>
+</span><span data-line="178">                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_callable</span>
+</span><span data-line="179">                <span class="k">else</span> <span class="s2">&quot;Expected a callable to be passed at build time&quot;</span>
+</span><span data-line="180">            <span class="p">)</span>
+</span><span data-line="181">            <span class="k">raise</span> <span class="n">MissingParamException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="182">        <span class="c1"># A param was passed at initialization</span>
+</span><span data-line="183">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_callable</span><span class="p">:</span>
+</span><span data-line="184">            <span class="c1"># In this case, we are going to call the callable, but we can still</span>
+</span><span data-line="185">            <span class="c1"># override if are passed a callable at build</span>
+</span><span data-line="186">            <span class="k">if</span> <span class="n">from_build</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Null</span><span class="p">:</span>
+</span><span data-line="187">                <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">from_build</span><span class="p">):</span>
+</span><span data-line="188">                    <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="s2">&quot;Callable[..., T]&quot;</span><span class="p">,</span> <span class="n">from_build</span><span class="p">)(</span><span class="o">**</span><span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">})</span>
+</span><span data-line="189">
+</span><span data-line="190">                <span class="c1"># If we were passed a value at build that isn&#39;t a callable, raise</span>
+</span><span data-line="191">                <span class="c1"># an exception</span>
+</span><span data-line="192">                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;The value passed at build time is not callable&quot;</span>
+</span><span data-line="193">                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="194">
+</span><span data-line="195">            <span class="c1"># Otherwise, return the value passed at initialization</span>
+</span><span data-line="196">            <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="s2">&quot;Callable[..., T]&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">)(</span><span class="o">**</span><span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">})</span>
+</span><span data-line="197">
+</span><span data-line="198">        <span class="c1"># Inthis case, we are not using a callable, so return either the value</span>
+</span><span data-line="199">        <span class="c1"># passed at build time or initialization</span>
+</span><span data-line="200">        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">)</span> <span class="k">if</span> <span class="n">from_build</span> <span class="ow">is</span> <span class="n">Null</span> <span class="k">else</span> <span class="n">cast</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">from_build</span><span class="p">)</span></div></div>
 </span></pre></div>
         </article><button class="back-to-top" type="button">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -536,7 +501,7 @@ data-aria-dark="Switch to auto color mode">
     </div>
   </div>
 </footer>
-      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=89ec3e0c"></script>
+      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=efc0be01"></script>
       <script src="../../_static/doctools.js?v=888ff710"></script>
       <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
