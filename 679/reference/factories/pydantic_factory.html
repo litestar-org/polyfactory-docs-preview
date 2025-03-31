@@ -392,25 +392,20 @@ For example, the ‘DataclassFactory’, ‘TypedDictFactory’ and ‘ModelFact
 <dt class="sig sig-object py" id="polyfactory.factories.pydantic_factory.ModelFactory.__use_examples__">
 <span class="sig-name descname"><span class="pre">__use_examples__</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#polyfactory.factories.pydantic_factory.ModelFactory.__use_examples__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flag indicating whether to use a random example, if provided (Pydantic &gt;=V2)</p>
-<p><a href="#id1"><span class="problematic" id="id2">``</span></a>`
-class Payment(BaseModel):</p>
-<blockquote>
-<div><p>amount: int = Field(0)
-currency: str = Field(examples=[‘USD’, ‘EUR’, ‘INR’])</p>
-</div></blockquote>
-<dl class="simple">
-<dt>class PaymentFactory(ModelFactory[Payment]):</dt><dd><p>__use_examples__ = True</p>
-</dd>
-</dl>
-<section id="id7">
-<h2><a href="#id3"><span class="problematic" id="id4">``</span></a><a href="#id5"><span class="problematic" id="id6">`</span></a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<p>Example code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">class</span> <span class="nc">Payment</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+</span><span data-line="2">    <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="3">    <span class="n">currency</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;USD&#39;</span><span class="p">,</span> <span class="s1">&#39;EUR&#39;</span><span class="p">,</span> <span class="s1">&#39;INR&#39;</span><span class="p">])</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="k">class</span> <span class="nc">PaymentFactory</span><span class="p">(</span><span class="n">ModelFactory</span><span class="p">[</span><span class="n">Payment</span><span class="p">]):</span>
+</span><span data-line="6">    <span class="n">__use_examples__</span> <span class="o">=</span> <span class="kc">True</span>
+</span></pre></div>
+</div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">payment</span> <span class="o">=</span> <span class="n">PaymentFactory</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="n">payment</span>
 </span><span data-line="3"><span class="go">Payment(amount=120, currency=&quot;EUR&quot;)</span>
-</span><span data-line="4"><span class="go">```</span>
 </span></pre></div>
 </div>
-</section>
 </dd></dl>
 
 <dl class="py attribute">
