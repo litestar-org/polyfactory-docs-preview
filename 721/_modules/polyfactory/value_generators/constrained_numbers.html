@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" data-accent-color="amber" data-content_root="">
+<html lang="en" data-accent-color="amber" data-content_root="../../../">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>polyfactory.value_generators.constrained_numbers - Polyfactory</title><link rel="shortcut icon" href="../../../_static/favicon.svg"/><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=397bb51e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/shibuya.css?v=83eaa723" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/shibuya.css?v=d0008d65" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_paramlinks.css" />
     <link media="print" rel="stylesheet" type="text/css" href="../../../_static/print.css?v=20ff2c19" />
     <link rel="stylesheet" type="text/css" href="../../../_static/style.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/litestar-sphinx-theme.css?v=9989272a" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/litestar-sphinx-theme.css?v=9a8390f1" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -232,7 +232,8 @@ data-aria-dark="Switch to auto color mode">
 </a><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
   </aside>
   <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
-  <main class="sy-main w-full max-sm:max-w-full print:pt-6"><div class="sy-breadcrumbs" role="navigation">
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
   <div class="sy-breadcrumbs-inner flex items-center">
     <div class="md:hidden mr-3">
       <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
@@ -262,25 +263,29 @@ data-aria-dark="Switch to auto color mode">
       <div class="min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
         <article class="yue" role="main">
           <h1>Source code for polyfactory.value_generators.constrained_numbers</h1><div class="highlight"><pre>
-<span></span><span data-line="1"><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 </span><span data-line="2">
-</span><span data-line="3"><span class="kn">from</span> <span class="nn">decimal</span> <span class="kn">import</span> <span class="n">ROUND_DOWN</span><span class="p">,</span> <span class="n">Decimal</span><span class="p">,</span> <span class="n">localcontext</span>
-</span><span data-line="4"><span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">float_info</span>
-</span><span data-line="5"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">cast</span>
+</span><span data-line="3"><span class="kn">from</span><span class="w"> </span><span class="nn">decimal</span><span class="w"> </span><span class="kn">import</span> <span class="n">ROUND_DOWN</span><span class="p">,</span> <span class="n">Decimal</span><span class="p">,</span> <span class="n">localcontext</span>
+</span><span data-line="4"><span class="kn">from</span><span class="w"> </span><span class="nn">sys</span><span class="w"> </span><span class="kn">import</span> <span class="n">float_info</span>
+</span><span data-line="5"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">cast</span>
 </span><span data-line="6">
-</span><span data-line="7"><span class="kn">from</span> <span class="nn">polyfactory.exceptions</span> <span class="kn">import</span> <span class="n">ParameterException</span>
-</span><span data-line="8"><span class="kn">from</span> <span class="nn">polyfactory.value_generators.primitives</span> <span class="kn">import</span> <span class="n">create_random_decimal</span><span class="p">,</span> <span class="n">create_random_float</span><span class="p">,</span> <span class="n">create_random_integer</span>
+</span><span data-line="7"><span class="kn">from</span><span class="w"> </span><span class="nn">polyfactory.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParameterException</span>
+</span><span data-line="8"><span class="kn">from</span><span class="w"> </span><span class="nn">polyfactory.value_generators.primitives</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_random_decimal</span><span class="p">,</span> <span class="n">create_random_float</span><span class="p">,</span> <span class="n">create_random_integer</span>
 </span><span data-line="9">
 </span><span data-line="10"><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-</span><span data-line="11">    <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">Random</span>
+</span><span data-line="11">    <span class="kn">from</span><span class="w"> </span><span class="nn">random</span><span class="w"> </span><span class="kn">import</span> <span class="n">Random</span>
 </span><span data-line="12">
 </span><span data-line="13"><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">Decimal</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
 </span><span data-line="14">
 </span><span data-line="15">
-<div class="viewcode-block" id="NumberGeneratorProtocol"><a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.NumberGeneratorProtocol">[docs]</a></span><span data-line="16"><span class="k">class</span> <span class="nc">NumberGeneratorProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+<div class="viewcode-block" id="NumberGeneratorProtocol">
+<a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.NumberGeneratorProtocol">[docs]</a>
+</span><span data-line="16"><span class="k">class</span><span class="w"> </span><span class="nc">NumberGeneratorProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 </span><span data-line="17"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Protocol for custom callables used to generate numerical values&quot;&quot;&quot;</span>
 </span><span data-line="18">
-<div class="viewcode-block" id="NumberGeneratorProtocol.__call__"><a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.NumberGeneratorProtocol.__call__">[docs]</a></span><span data-line="19">    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">random</span><span class="p">:</span> <span class="s2">&quot;Random&quot;</span><span class="p">,</span> <span class="n">minimum</span><span class="p">:</span> <span class="n">T</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">maximum</span><span class="p">:</span> <span class="n">T</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<div class="viewcode-block" id="NumberGeneratorProtocol.__call__">
+<a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.NumberGeneratorProtocol.__call__">[docs]</a>
+</span><span data-line="19">    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">random</span><span class="p">:</span> <span class="s2">&quot;Random&quot;</span><span class="p">,</span> <span class="n">minimum</span><span class="p">:</span> <span class="n">T</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">maximum</span><span class="p">:</span> <span class="n">T</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 </span><span data-line="20"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Signature of the callable.</span>
 </span><span data-line="21">
 </span><span data-line="22"><span class="sd">        :param random: An instance of random.</span>
@@ -288,10 +293,14 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="24"><span class="sd">        :param maximum: A maximum value.</span>
 </span><span data-line="25"><span class="sd">        :return: The generated numeric value.</span>
 </span><span data-line="26"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="27">        <span class="o">...</span></div></div>
+</span><span data-line="27">        <span class="o">...</span></div>
+</div>
+
 </span><span data-line="28">
 </span><span data-line="29">
-<div class="viewcode-block" id="almost_equal_floats"><a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.almost_equal_floats">[docs]</a></span><span data-line="30"><span class="k">def</span> <span class="nf">almost_equal_floats</span><span class="p">(</span><span class="n">value_1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">value_2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">delta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="almost_equal_floats">
+<a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.almost_equal_floats">[docs]</a>
+</span><span data-line="30"><span class="k">def</span><span class="w"> </span><span class="nf">almost_equal_floats</span><span class="p">(</span><span class="n">value_1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">value_2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">delta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 </span><span data-line="31"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return True if two floats are almost equal</span>
 </span><span data-line="32">
 </span><span data-line="33"><span class="sd">    :param value_1: A float value.</span>
@@ -301,9 +310,12 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="37"><span class="sd">    :returns: Boolean dictating whether the floats can be considered equal - given python&#39;s problematic comparison of floats.</span>
 </span><span data-line="38"><span class="sd">    &quot;&quot;&quot;</span>
 </span><span data-line="39">    <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">value_1</span> <span class="o">-</span> <span class="n">value_2</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">delta</span></div>
+
 </span><span data-line="40">
 </span><span data-line="41">
-<div class="viewcode-block" id="is_multiply_of_multiple_of_in_range"><a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.is_multiply_of_multiple_of_in_range">[docs]</a></span><span data-line="42"><span class="k">def</span> <span class="nf">is_multiply_of_multiple_of_in_range</span><span class="p">(</span>
+<div class="viewcode-block" id="is_multiply_of_multiple_of_in_range">
+<a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.is_multiply_of_multiple_of_in_range">[docs]</a>
+</span><span data-line="42"><span class="k">def</span><span class="w"> </span><span class="nf">is_multiply_of_multiple_of_in_range</span><span class="p">(</span>
 </span><span data-line="43">    <span class="n">minimum</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span>
 </span><span data-line="44">    <span class="n">maximum</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span>
 </span><span data-line="45">    <span class="n">multiple_of</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span>
@@ -361,9 +373,12 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="97">            <span class="k">return</span> <span class="kc">True</span>
 </span><span data-line="98">
 </span><span data-line="99">    <span class="k">return</span> <span class="kc">False</span></div>
+
 </span><span data-line="100">
 </span><span data-line="101">
-<div class="viewcode-block" id="passes_pydantic_multiple_validator"><a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.passes_pydantic_multiple_validator">[docs]</a></span><span data-line="102"><span class="k">def</span> <span class="nf">passes_pydantic_multiple_validator</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">multiple_of</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="passes_pydantic_multiple_validator">
+<a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.passes_pydantic_multiple_validator">[docs]</a>
+</span><span data-line="102"><span class="k">def</span><span class="w"> </span><span class="nf">passes_pydantic_multiple_validator</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">multiple_of</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 </span><span data-line="103"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Determine whether a given value passes the pydantic multiple_of validation.</span>
 </span><span data-line="104">
 </span><span data-line="105"><span class="sd">    :param value: A numeric value.</span>
@@ -376,9 +391,12 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="112">        <span class="k">return</span> <span class="kc">True</span>
 </span><span data-line="113">    <span class="n">mod</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">multiple_of</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1</span>
 </span><span data-line="114">    <span class="k">return</span> <span class="n">almost_equal_floats</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span> <span class="ow">or</span> <span class="n">almost_equal_floats</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span></div>
+
 </span><span data-line="115">
 </span><span data-line="116">
-<div class="viewcode-block" id="get_increment"><a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.get_increment">[docs]</a></span><span data-line="117"><span class="k">def</span> <span class="nf">get_increment</span><span class="p">(</span><span class="n">t_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<div class="viewcode-block" id="get_increment">
+<a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.get_increment">[docs]</a>
+</span><span data-line="117"><span class="k">def</span><span class="w"> </span><span class="nf">get_increment</span><span class="p">(</span><span class="n">t_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 </span><span data-line="118"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get a small increment base to add to constrained values, i.e. lt/gt entries.</span>
 </span><span data-line="119">
 </span><span data-line="120"><span class="sd">    :param t_type: A value of type T.</span>
@@ -391,9 +409,12 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="127">        <span class="n">Decimal</span><span class="p">:</span> <span class="n">Decimal</span><span class="p">(</span><span class="s2">&quot;0.001&quot;</span><span class="p">),</span>
 </span><span data-line="128">    <span class="p">}</span>
 </span><span data-line="129">    <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">values</span><span class="p">[</span><span class="n">t_type</span><span class="p">])</span></div>
+
 </span><span data-line="130">
 </span><span data-line="131">
-<div class="viewcode-block" id="get_value_or_none"><a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.get_value_or_none">[docs]</a></span><span data-line="132"><span class="k">def</span> <span class="nf">get_value_or_none</span><span class="p">(</span>
+<div class="viewcode-block" id="get_value_or_none">
+<a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.get_value_or_none">[docs]</a>
+</span><span data-line="132"><span class="k">def</span><span class="w"> </span><span class="nf">get_value_or_none</span><span class="p">(</span>
 </span><span data-line="133">    <span class="n">t_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span>
 </span><span data-line="134">    <span class="n">lt</span><span class="p">:</span> <span class="n">T</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span data-line="135">    <span class="n">le</span><span class="p">:</span> <span class="n">T</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -444,9 +465,12 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="180">            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;maximum value must be greater than </span><span class="si">{</span><span class="n">minimum</span><span class="si">}</span><span class="s2">&quot;</span>
 </span><span data-line="181">            <span class="k">raise</span> <span class="n">ParameterException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 </span><span data-line="182">    <span class="k">return</span> <span class="n">minimum_value</span><span class="p">,</span> <span class="n">maximum_value</span></div>
+
 </span><span data-line="183">
 </span><span data-line="184">
-<div class="viewcode-block" id="get_constrained_number_range"><a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.get_constrained_number_range">[docs]</a></span><span data-line="185"><span class="k">def</span> <span class="nf">get_constrained_number_range</span><span class="p">(</span>
+<div class="viewcode-block" id="get_constrained_number_range">
+<a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.get_constrained_number_range">[docs]</a>
+</span><span data-line="185"><span class="k">def</span><span class="w"> </span><span class="nf">get_constrained_number_range</span><span class="p">(</span>
 </span><span data-line="186">    <span class="n">t_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span>
 </span><span data-line="187">    <span class="n">random</span><span class="p">:</span> <span class="n">Random</span><span class="p">,</span>
 </span><span data-line="188">    <span class="n">lt</span><span class="p">:</span> <span class="n">T</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -498,9 +522,12 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="234">            <span class="k">raise</span> <span class="n">ParameterException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 </span><span data-line="235">
 </span><span data-line="236">    <span class="k">return</span> <span class="n">minimum</span><span class="p">,</span> <span class="n">maximum</span></div>
+
 </span><span data-line="237">
 </span><span data-line="238">
-<div class="viewcode-block" id="generate_constrained_number"><a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.generate_constrained_number">[docs]</a></span><span data-line="239"><span class="k">def</span> <span class="nf">generate_constrained_number</span><span class="p">(</span>
+<div class="viewcode-block" id="generate_constrained_number">
+<a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.generate_constrained_number">[docs]</a>
+</span><span data-line="239"><span class="k">def</span><span class="w"> </span><span class="nf">generate_constrained_number</span><span class="p">(</span>
 </span><span data-line="240">    <span class="n">random</span><span class="p">:</span> <span class="n">Random</span><span class="p">,</span>
 </span><span data-line="241">    <span class="n">minimum</span><span class="p">:</span> <span class="n">T</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
 </span><span data-line="242">    <span class="n">maximum</span><span class="p">:</span> <span class="n">T</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
@@ -527,9 +554,12 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="263">    <span class="k">while</span> <span class="ow">not</span> <span class="n">passes_pydantic_multiple_validator</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">multiple_of</span><span class="p">):</span>
 </span><span data-line="264">        <span class="n">result</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">method</span><span class="p">(</span><span class="n">random</span><span class="o">=</span><span class="n">random</span><span class="p">,</span> <span class="n">minimum</span><span class="o">=</span><span class="n">minimum</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="n">maximum</span><span class="p">)</span> <span class="o">/</span> <span class="n">multiple_of</span><span class="p">)</span> <span class="o">*</span> <span class="n">multiple_of</span>
 </span><span data-line="265">    <span class="k">return</span> <span class="n">result</span></div>
+
 </span><span data-line="266">
 </span><span data-line="267">
-<div class="viewcode-block" id="handle_constrained_int"><a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.handle_constrained_int">[docs]</a></span><span data-line="268"><span class="k">def</span> <span class="nf">handle_constrained_int</span><span class="p">(</span>
+<div class="viewcode-block" id="handle_constrained_int">
+<a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.handle_constrained_int">[docs]</a>
+</span><span data-line="268"><span class="k">def</span><span class="w"> </span><span class="nf">handle_constrained_int</span><span class="p">(</span>
 </span><span data-line="269">    <span class="n">random</span><span class="p">:</span> <span class="n">Random</span><span class="p">,</span>
 </span><span data-line="270">    <span class="n">multiple_of</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span data-line="271">    <span class="n">gt</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -566,9 +596,12 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="302">        <span class="n">multiple_of</span><span class="o">=</span><span class="n">multiple_of</span><span class="p">,</span>
 </span><span data-line="303">        <span class="n">method</span><span class="o">=</span><span class="n">create_random_integer</span><span class="p">,</span>
 </span><span data-line="304">    <span class="p">)</span></div>
+
 </span><span data-line="305">
 </span><span data-line="306">
-<div class="viewcode-block" id="handle_constrained_float"><a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.handle_constrained_float">[docs]</a></span><span data-line="307"><span class="k">def</span> <span class="nf">handle_constrained_float</span><span class="p">(</span>
+<div class="viewcode-block" id="handle_constrained_float">
+<a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.handle_constrained_float">[docs]</a>
+</span><span data-line="307"><span class="k">def</span><span class="w"> </span><span class="nf">handle_constrained_float</span><span class="p">(</span>
 </span><span data-line="308">    <span class="n">random</span><span class="p">:</span> <span class="n">Random</span><span class="p">,</span>
 </span><span data-line="309">    <span class="n">multiple_of</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span data-line="310">    <span class="n">gt</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -605,9 +638,12 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="341">        <span class="n">multiple_of</span><span class="o">=</span><span class="n">multiple_of</span><span class="p">,</span>
 </span><span data-line="342">        <span class="n">method</span><span class="o">=</span><span class="n">create_random_float</span><span class="p">,</span>
 </span><span data-line="343">    <span class="p">)</span></div>
+
 </span><span data-line="344">
 </span><span data-line="345">
-<div class="viewcode-block" id="validate_max_digits"><a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.validate_max_digits">[docs]</a></span><span data-line="346"><span class="k">def</span> <span class="nf">validate_max_digits</span><span class="p">(</span>
+<div class="viewcode-block" id="validate_max_digits">
+<a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.validate_max_digits">[docs]</a>
+</span><span data-line="346"><span class="k">def</span><span class="w"> </span><span class="nf">validate_max_digits</span><span class="p">(</span>
 </span><span data-line="347">    <span class="n">max_digits</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
 </span><span data-line="348">    <span class="n">decimal_places</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
 </span><span data-line="349"><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -627,9 +663,12 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="363">    <span class="k">if</span> <span class="n">decimal_places</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">max_digits</span> <span class="o">&lt;</span> <span class="n">decimal_places</span><span class="p">:</span>
 </span><span data-line="364">        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;max_digits must be greater or equal than decimal places&quot;</span>
 </span><span data-line="365">        <span class="k">raise</span> <span class="n">ParameterException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+
 </span><span data-line="366">
 </span><span data-line="367">
-<div class="viewcode-block" id="handle_decimal_length"><a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.handle_decimal_length">[docs]</a></span><span data-line="368"><span class="k">def</span> <span class="nf">handle_decimal_length</span><span class="p">(</span>
+<div class="viewcode-block" id="handle_decimal_length">
+<a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.handle_decimal_length">[docs]</a>
+</span><span data-line="368"><span class="k">def</span><span class="w"> </span><span class="nf">handle_decimal_length</span><span class="p">(</span>
 </span><span data-line="369">    <span class="n">generated_decimal</span><span class="p">:</span> <span class="n">Decimal</span><span class="p">,</span>
 </span><span data-line="370">    <span class="n">decimal_places</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
 </span><span data-line="371">    <span class="n">max_digits</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
@@ -653,9 +692,12 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="389">                <span class="n">max_decimals</span> <span class="o">=</span> <span class="n">max_digits</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">whole</span><span class="p">)</span>
 </span><span data-line="390">                <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">generated_decimal</span><span class="p">,</span> <span class="n">max_decimals</span><span class="p">)</span>
 </span><span data-line="391">        <span class="k">return</span> <span class="n">generated_decimal</span></div>
+
 </span><span data-line="392">
 </span><span data-line="393">
-<div class="viewcode-block" id="handle_constrained_decimal"><a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.handle_constrained_decimal">[docs]</a></span><span data-line="394"><span class="k">def</span> <span class="nf">handle_constrained_decimal</span><span class="p">(</span>
+<div class="viewcode-block" id="handle_constrained_decimal">
+<a class="viewcode-back" href="../../../reference/value_generators/constrained_numbers.html#polyfactory.value_generators.constrained_numbers.handle_constrained_decimal">[docs]</a>
+</span><span data-line="394"><span class="k">def</span><span class="w"> </span><span class="nf">handle_constrained_decimal</span><span class="p">(</span>
 </span><span data-line="395">    <span class="n">random</span><span class="p">:</span> <span class="n">Random</span><span class="p">,</span>
 </span><span data-line="396">    <span class="n">multiple_of</span><span class="p">:</span> <span class="n">Decimal</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span data-line="397">    <span class="n">decimal_places</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -707,6 +749,7 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="443">        <span class="n">max_digits</span><span class="o">=</span><span class="n">max_digits</span><span class="p">,</span>
 </span><span data-line="444">        <span class="n">decimal_places</span><span class="o">=</span><span class="n">decimal_places</span><span class="p">,</span>
 </span><span data-line="445">    <span class="p">)</span></div>
+
 </span></pre></div>
         </article><button class="back-to-top" type="button">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -746,9 +789,9 @@ data-aria-dark="Switch to auto color mode">
     </div>
   </div>
 </footer>
-      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=8b0f6e45"></script>
-      <script src="../../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../../_static/documentation_options.js?v=a975b80d"></script>
+      <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
       <script src="../../../_static/litestar-theme.js?v=ab2dcc9e"></script>
@@ -756,8 +799,9 @@ data-aria-dark="Switch to auto color mode">
       <script>let toggleHintHide = 'Click to hide';</script>
       <script>let toggleOpenOnPrint = 'true';</script>
       <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
-      <script src="../../../_static/design-tabs.js?v=36754332"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
       <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-      <script src="../../../_static/shibuya.js?v=e2e99575"></script>
+      <script src="../../../_static/shibuya.js?v=1d2088d1"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
       <script src="../../../_static/versioning.js"></script></body>
 </html>

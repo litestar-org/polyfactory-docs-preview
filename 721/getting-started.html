@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" data-accent-color="amber" data-content_root="">
+<html lang="en" data-accent-color="amber" data-content_root="./">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Getting Started - Polyfactory</title><link rel="shortcut icon" href="_static/favicon.svg"/><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Usage Guide" href="usage/index.html" /><link rel="prev" title="Sponsors" href="index.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=397bb51e" />
-    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=83eaa723" />
+    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=d0008d65" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx_paramlinks.css" />
     <link media="print" rel="stylesheet" type="text/css" href="_static/print.css?v=20ff2c19" />
     <link rel="stylesheet" type="text/css" href="_static/style.css" />
-    <link rel="stylesheet" type="text/css" href="_static/litestar-sphinx-theme.css?v=9989272a" />
+    <link rel="stylesheet" type="text/css" href="_static/litestar-sphinx-theme.css?v=9a8390f1" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -235,11 +235,12 @@ data-aria-dark="Switch to auto color mode">
     </span>
   </span>
 </a><div class="edit-this-page">
-  <a href="https://github.com/litestar-org/polyfactory/blob/master/docs/getting-started.rst">Edit this page</a>
+  <a href="https://github.com/litestar-org/polyfactory/blob/main/docs/getting-started.rst">Edit this page</a>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
   </aside>
   <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
-  <main class="sy-main w-full max-sm:max-w-full print:pt-6"><div class="sy-breadcrumbs" role="navigation">
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
   <div class="sy-breadcrumbs-inner flex items-center">
     <div class="md:hidden mr-3">
       <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
@@ -265,38 +266,38 @@ data-aria-dark="Switch to auto color mode">
       <div class="min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
         <article class="yue" role="main">
           <section id="getting-started">
-<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h1>
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">¶</a></h1>
 <p>Polyfactory is a simple and powerful mock data generation library, based around type
 hints and supporting <a class="reference external" href="https://docs.python.org/3/library/dataclasses.html" title="(in Python v3.13)"><span class="xref std std-doc">dataclasses</span></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypedDict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDicts</span></code></a>,
 Pydantic models, <a class="reference external" href="https://jcristharif.com/msgspec/api.html#msgspec.Struct" title="(in msgspec)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msgspec</span> <span class="pre">Struct's</span></code></a> and more.</p>
 <section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h2>
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">pip<span class="w"> </span>install<span class="w"> </span>polyfactory
 </span></pre></div>
 </div>
 </section>
 <section id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading">¶</a></h2>
 <div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Minimal example using a dataclass</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<div class="code-block-caption"><span class="caption-text">Minimal example using a dataclass</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
 </span><span data-line="2">
-</span><span data-line="3"><span class="kn">from</span> <span class="nn">polyfactory.factories</span> <span class="kn">import</span> <span class="n">DataclassFactory</span>
+</span><span data-line="3"><span class="kn">from</span><span class="w"> </span><span class="nn">polyfactory.factories</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataclassFactory</span>
 </span><span data-line="4">
 </span><span data-line="5">
 </span><span data-line="6"><span class="nd">@dataclass</span>
-</span><span data-line="7"><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+</span><span data-line="7"><span class="k">class</span><span class="w"> </span><span class="nc">Person</span><span class="p">:</span>
 </span><span data-line="8">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
 </span><span data-line="9">    <span class="n">age</span><span class="p">:</span> <span class="nb">float</span>
 </span><span data-line="10">    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span>
 </span><span data-line="11">    <span class="n">weight</span><span class="p">:</span> <span class="nb">float</span>
 </span><span data-line="12">
 </span><span data-line="13">
-</span><span data-line="14"><span class="k">class</span> <span class="nc">PersonFactory</span><span class="p">(</span><span class="n">DataclassFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span>
+</span><span data-line="14"><span class="k">class</span><span class="w"> </span><span class="nc">PersonFactory</span><span class="p">(</span><span class="n">DataclassFactory</span><span class="p">[</span><span class="n">Person</span><span class="p">]):</span>
 </span><span data-line="15">    <span class="n">__model__</span> <span class="o">=</span> <span class="n">Person</span>
 </span><span data-line="16">
 </span><span data-line="17">
-</span><span data-line="18"><span class="k">def</span> <span class="nf">test_is_person</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="18"><span class="k">def</span><span class="w"> </span><span class="nf">test_is_person</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span data-line="19">    <span class="n">person_instance</span> <span class="o">=</span> <span class="n">PersonFactory</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </span><span data-line="20">    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">person_instance</span><span class="p">,</span> <span class="n">Person</span><span class="p">)</span>
 </span><span data-line="21">    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">person_instance</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
@@ -313,7 +314,7 @@ source of truth for data generation.</p>
 the <code class="docutils literal notranslate"><span class="pre">Person</span></code> class constructor.</p>
 </section>
 <section id="relation-to-pydantic-factories">
-<h2>Relation to <code class="docutils literal notranslate"><span class="pre">pydantic-factories</span></code><a class="headerlink" href="#relation-to-pydantic-factories" title="Permalink to this heading">¶</a></h2>
+<h2>Relation to <code class="docutils literal notranslate"><span class="pre">pydantic-factories</span></code><a class="headerlink" href="#relation-to-pydantic-factories" title="Link to this heading">¶</a></h2>
 <p>Prior to version 2, this library was known as <a class="reference external" href="https://pypi.org/project/pydantic-factories/">pydantic-factories</a>, a
 name under which it gained quite a bit of popularity.</p>
 <p>A main motivator for the 2.0 release was that we wanted to support more than just Pydantic models, something which also
@@ -377,9 +378,9 @@ and <a class="reference external" href="https://beanie-odm.dev/">Beanie ODM</a> 
     </div>
   </div>
 </footer>
-      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=8b0f6e45"></script>
-      <script src="_static/doctools.js?v=888ff710"></script>
-      <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="_static/documentation_options.js?v=a975b80d"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=f281be69"></script>
       <script src="_static/litestar-theme.js?v=ab2dcc9e"></script>
@@ -387,8 +388,9 @@ and <a class="reference external" href="https://beanie-odm.dev/">Beanie ODM</a> 
       <script>let toggleHintHide = 'Click to hide';</script>
       <script>let toggleOpenOnPrint = 'true';</script>
       <script src="_static/togglebutton.js?v=4a39c7ea"></script>
-      <script src="_static/design-tabs.js?v=36754332"></script>
+      <script src="_static/design-tabs.js?v=f930bc37"></script>
       <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-      <script src="_static/shibuya.js?v=e2e99575"></script>
+      <script src="_static/shibuya.js?v=1d2088d1"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
       <script src="_static/versioning.js"></script></body>
 </html>
