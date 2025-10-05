@@ -215,7 +215,6 @@ data-aria-dark="Switch to auto color mode">
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
 <li><a class="reference internal" href="#sqlalchemyfactory-default-changes">SQLAlchemyFactory Default Changes</a><ul>
 <li><a class="reference internal" href="#default-relationship-behavior">Default Relationship Behavior</a></li>
-<li><a class="reference internal" href="#default-association-proxy-behavior">Default Association Proxy Behavior</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#model-validation-behavior">Model Validation Behavior</a></li>
@@ -293,20 +292,6 @@ data-aria-dark="Switch to auto color mode">
 <li><p>Relationships are automatically populated by default</p></li>
 </ul>
 <p>To maintain the previous behavior, explicitly set <code class="docutils literal notranslate"><span class="pre">__set_relationships__</span> <span class="pre">=</span> <span class="pre">False</span></code> on your factory.</p>
-</section>
-<section id="default-association-proxy-behavior">
-<h3>Default Association Proxy Behavior<a class="headerlink" href="#default-association-proxy-behavior" title="Permalink to this heading">¶</a></h3>
-<p><strong>Before:</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">__set_association_proxy__</span></code> defaulted to <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
-<li><p>Association proxies were not automatically populated unless explicitly enabled</p></li>
-</ul>
-<p><strong>After:</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">__set_association_proxy__</span></code> now defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
-<li><p>Association proxies are automatically populated by default</p></li>
-</ul>
-<p>To maintain the previous behavior, explicitly set <code class="docutils literal notranslate"><span class="pre">__set_association_proxy__</span> <span class="pre">=</span> <span class="pre">False</span></code> on your factory.</p>
 </section>
 </section>
 <section id="model-validation-behavior">
