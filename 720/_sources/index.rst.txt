@@ -87,6 +87,7 @@
 
     getting-started
     usage/index
+    migration_guide/index
     reference/index
 
 .. toctree::
