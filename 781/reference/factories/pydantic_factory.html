@@ -385,11 +385,10 @@ For example, the ‘DataclassFactory’, ‘TypedDictFactory’ and ‘ModelFact
 <p>This helps handle validation aliases automatically without requiring users to modify their model configurations.</p>
 <p>Example code:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">class</span><span class="w"> </span><span class="nc">MyModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-</span><span data-line="2">    <span class="n">model_config</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;populate_by_name&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
-</span><span data-line="3">    <span class="n">field_a</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">validation_alias</span><span class="o">=</span><span class="s2">&quot;special_field_a&quot;</span><span class="p">)</span>
-</span><span data-line="4">
-</span><span data-line="5"><span class="k">class</span><span class="w"> </span><span class="nc">MyFactory</span><span class="p">(</span><span class="n">ModelFactory</span><span class="p">[</span><span class="n">MyModel</span><span class="p">]):</span>
-</span><span data-line="6">    <span class="n">__by_name__</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span data-line="2">    <span class="n">field_a</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">validation_alias</span><span class="o">=</span><span class="s2">&quot;special_field_a&quot;</span><span class="p">)</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="k">class</span><span class="w"> </span><span class="nc">MyFactory</span><span class="p">(</span><span class="n">ModelFactory</span><span class="p">[</span><span class="n">MyModel</span><span class="p">]):</span>
+</span><span data-line="5">    <span class="n">__by_name__</span> <span class="o">=</span> <span class="kc">True</span>
 </span></pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span> <span class="o">=</span> <span class="n">MyFactory</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">field_a</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
