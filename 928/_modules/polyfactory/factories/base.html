@@ -1186,7 +1186,7 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="906">            <span class="k">return</span>
 </span><span data-line="907">
 </span><span data-line="908">        <span class="n">members</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_get_union_members_to_cover</span><span class="p">(</span><span class="n">field_meta</span><span class="p">)</span>
-</span><span data-line="909">        <span class="k">if</span> <span class="n">members</span><span class="p">:</span>
+</span><span data-line="909">        <span class="k">if</span> <span class="n">members</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 </span><span data-line="910">            <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">members</span><span class="p">:</span>
 </span><span data-line="911">                <span class="k">if</span> <span class="n">member</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 </span><span data-line="912">                    <span class="k">yield</span> <span class="kc">None</span>
@@ -1249,34 +1249,34 @@ data-aria-dark="Switch to auto color mode">
 
 </span><span data-line="969">
 </span><span data-line="970">    <span class="nd">@classmethod</span>
-</span><span data-line="971">    <span class="k">def</span><span class="w"> </span><span class="nf">_get_union_members_to_cover</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">field_meta</span><span class="p">:</span> <span class="n">FieldMeta</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">FieldMeta</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
+</span><span data-line="971">    <span class="k">def</span><span class="w"> </span><span class="nf">_get_union_members_to_cover</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">field_meta</span><span class="p">:</span> <span class="n">FieldMeta</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">FieldMeta</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 </span><span data-line="972"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a union field&#39;s members to cover one by one, each from its own field meta, in the order written.</span>
 </span><span data-line="973">
 </span><span data-line="974"><span class="sd">        ``FieldMeta.from_type`` and the pydantic integrations build a union&#39;s children from its type args other than</span>
-</span><span data-line="975"><span class="sd">        ``None``, in order. Returns an empty list - the field is covered as a whole - if the field is not a union or</span>
-</span><span data-line="976"><span class="sd">        its children don&#39;t line up with its members, if a provider is registered for the union itself, or if a member</span>
-</span><span data-line="977"><span class="sd">        is an ignored type.</span>
+</span><span data-line="975"><span class="sd">        ``None``, in order.</span>
+</span><span data-line="976">
+</span><span data-line="977"><span class="sd">        :param field_meta: FieldMeta instance.</span>
 </span><span data-line="978">
-</span><span data-line="979"><span class="sd">        :param field_meta: FieldMeta instance.</span>
-</span><span data-line="980">
-</span><span data-line="981"><span class="sd">        :returns: A list of field metas, with ``None`` for ``None``.</span>
+</span><span data-line="979"><span class="sd">        :returns: The members, with ``None`` for ``None`` - or ``None`` to cover the field as a whole, if it is not a</span>
+</span><span data-line="980"><span class="sd">            union, if its children don&#39;t line up with its members, if a provider is registered for the union itself,</span>
+</span><span data-line="981"><span class="sd">            or if a member is an ignored type.</span>
 </span><span data-line="982"><span class="sd">        &quot;&quot;&quot;</span>
 </span><span data-line="983">        <span class="n">annotation</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">children</span> <span class="o">=</span> <span class="n">field_meta</span><span class="o">.</span><span class="n">annotation</span><span class="p">,</span> <span class="n">field_meta</span><span class="o">.</span><span class="n">type_args</span><span class="p">,</span> <span class="n">field_meta</span><span class="o">.</span><span class="n">children</span> <span class="ow">or</span> <span class="p">[]</span>
 </span><span data-line="984">        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_union</span><span class="p">(</span><span class="n">get_args</span><span class="p">(</span><span class="n">annotation</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">is_annotated</span><span class="p">(</span><span class="n">annotation</span><span class="p">)</span> <span class="k">else</span> <span class="n">annotation</span><span class="p">):</span>
-</span><span data-line="985">            <span class="k">return</span> <span class="p">[]</span>
+</span><span data-line="985">            <span class="k">return</span> <span class="kc">None</span>
 </span><span data-line="986">        <span class="k">if</span> <span class="ow">not</span> <span class="n">children</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">children</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">arg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NoneType</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">):</span>
-</span><span data-line="987">            <span class="k">return</span> <span class="p">[]</span>
+</span><span data-line="987">            <span class="k">return</span> <span class="kc">None</span>
 </span><span data-line="988">        <span class="n">members</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">FieldMeta</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">children</span><span class="p">)</span>
 </span><span data-line="989">        <span class="k">if</span> <span class="n">NoneType</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
 </span><span data-line="990">            <span class="n">members</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">NoneType</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
 </span><span data-line="991">        <span class="k">try</span><span class="p">:</span>
 </span><span data-line="992">            <span class="k">if</span> <span class="n">field_meta</span><span class="o">.</span><span class="n">annotation</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_provider_map</span><span class="p">():</span>
-</span><span data-line="993">                <span class="k">return</span> <span class="p">[]</span>
+</span><span data-line="993">                <span class="k">return</span> <span class="kc">None</span>
 </span><span data-line="994">        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
 </span><span data-line="995">            <span class="c1"># Annotated metadata may be unhashable.</span>
 </span><span data-line="996">            <span class="k">pass</span>
 </span><span data-line="997">        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">member</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">cls</span><span class="o">.</span><span class="n">is_ignored_type</span><span class="p">(</span><span class="n">member</span><span class="o">.</span><span class="n">annotation</span><span class="p">)</span> <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">members</span><span class="p">):</span>
-</span><span data-line="998">            <span class="k">return</span> <span class="p">[]</span>
+</span><span data-line="998">            <span class="k">return</span> <span class="kc">None</span>
 </span><span data-line="999">        <span class="k">return</span> <span class="n">members</span>
 </span><span data-line="1000">
 </span><span data-line="1001">    <span class="nd">@classmethod</span>
